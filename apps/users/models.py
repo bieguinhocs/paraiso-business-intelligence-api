@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
 class CustomUser(AbstractUser):
     dni = models.CharField(max_length=255, unique=True, verbose_name='DNI')
     corporate_phone = models.CharField(max_length=255, blank=True, null=True, verbose_name='Número de teléfono corporativo')
@@ -11,6 +10,8 @@ class CustomUser(AbstractUser):
     #address = models.ForeignKey('locations.Address', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Dirección')
     supervisor = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Coordinador')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Creación de registro')
+
+    # Campo de AbstractUser omitido y reemplazado por 'created_at'
     date_joined = models.DateTimeField(null=True, blank=True, editable=False)
     
     class Meta:
