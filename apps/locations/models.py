@@ -6,7 +6,7 @@ class AddressDepartment(models.Model):
 
     class Meta:
         verbose_name = 'Departamento'
-        verbose_name_plural = 'Departamentos'
+        verbose_name_plural = '1. Departamentos'
 
     def __str__(self):
         return self.name
@@ -18,7 +18,7 @@ class AddressCity(models.Model):
 
     class Meta:
         verbose_name = 'Ciudad'
-        verbose_name_plural = 'Ciudades'
+        verbose_name_plural = '2. Ciudades'
 
     def __str__(self):
         return self.name
@@ -29,7 +29,7 @@ class AddressZoneGroup(models.Model):
 
     class Meta:
         verbose_name = 'Grupo Zonal'
-        verbose_name_plural = 'Grupos Zonales'
+        verbose_name_plural = '3. Grupos Zonales'
 
     def __str__(self):
         return self.name
@@ -42,7 +42,7 @@ class AddressDistrict(models.Model):
 
     class Meta:
         verbose_name = 'Distrito'
-        verbose_name_plural = 'Distritos'
+        verbose_name_plural = '4. Distritos'
 
     def __str__(self):
         return self.name
@@ -55,7 +55,7 @@ class Address(models.Model):
 
     class Meta:
         verbose_name = 'Dirección'
-        verbose_name_plural = 'Direcciones'
+        verbose_name_plural = '5. Direcciones'
 
     def __str__(self):
         return self.name or self.location
