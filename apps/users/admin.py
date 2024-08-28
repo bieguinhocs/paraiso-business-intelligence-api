@@ -1,6 +1,14 @@
 from django.contrib import admin
+from api.admin import custom_admin_site
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from .models import CustomUser
-from django.contrib.auth.admin import UserAdmin
+
+# Registrar el modelo User con su correspondiente UserAdmin
+custom_admin_site.register(User, UserAdmin)
+
+# Registrar el modelo Group con su correspondiente GroupAdmin
+custom_admin_site.register(Group, GroupAdmin)
 
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
@@ -14,4 +22,4 @@ class CustomUserAdmin(UserAdmin):
     # Campos visibles en la lista de usuarios
     list_display = UserAdmin.list_display + ('is_active',)
 
-admin.site.register(CustomUser, CustomUserAdmin)
+custom_admin_site.register(CustomUser, CustomUserAdmin)
