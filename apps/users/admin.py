@@ -4,6 +4,24 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from .models import CustomUser
 
+try:
+    admin.site.unregister(User)
+except admin.sites.NotRegistered:
+    pass
+
+try:
+    admin.site.unregister(Group)
+except admin.sites.NotRegistered:
+    pass
+
+@admin.register(User)
+class UserAdmin(UserAdmin, ModelAdmin):
+    pass
+
+@admin.register(Group)
+class GroupAdmin(GroupAdmin, ModelAdmin):
+    pass
+
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin, ModelAdmin):
     fieldsets = (
