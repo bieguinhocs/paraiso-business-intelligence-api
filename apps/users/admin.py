@@ -1,16 +1,11 @@
 from django.contrib import admin
-from api.admin import custom_admin_site
+from unfold.admin import ModelAdmin
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from .models import CustomUser
 
-# Registrar el modelo User con su correspondiente UserAdmin
-custom_admin_site.register(User, UserAdmin)
-
-# Registrar el modelo Group con su correspondiente GroupAdmin
-custom_admin_site.register(Group, GroupAdmin)
-
-class CustomUserAdmin(UserAdmin):
+@admin.register(CustomUser)
+class CustomUserAdmin(UserAdmin, ModelAdmin):
     fieldsets = (
         ('Acceso y Seguridad', {'fields': ('username', 'password', 'last_login')}),
         ('Datos Personales', {'fields': ('dni', 'first_name', 'last_name', 'email', 'corporate_phone', 'corporate_device_imei', 'supervisor')}),
@@ -21,5 +16,3 @@ class CustomUserAdmin(UserAdmin):
 
     # Campos visibles en la lista de usuarios
     list_display = UserAdmin.list_display + ('is_active',)
-
-custom_admin_site.register(CustomUser, CustomUserAdmin)
