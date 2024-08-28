@@ -42,8 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+
     'apps.users',
     'apps.locations'
+
+    'django_admin_listfilter_dropdown',
 ]
 
 MIDDLEWARE = [
