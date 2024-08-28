@@ -1,5 +1,7 @@
 from django.contrib import admin
+from api.admin import custom_admin_site
 from .models import AddressDepartment, AddressCity, AddressZoneGroup, AddressDistrict, Address
+from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter
 
 # Filtro por Distrito en AddressAdmin
 class DistrictFilter(admin.SimpleListFilter):
@@ -71,39 +73,46 @@ class DepartmentFilterForCity(admin.SimpleListFilter):
             return queryset.filter(department__id=self.value())
         return queryset
 
-@admin.register(AddressDepartment)
+@admin.register(AddressDepartment, site=custom_admin_site)
 class AddressDepartmentAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
     list_filter = ('created_at',)
 
-@admin.register(AddressCity)
+@admin.register(AddressCity, site=custom_admin_site)
 class AddressCityAdmin(admin.ModelAdmin):
     list_display = ('name', 'department',)
     search_fields = ('name',)
     list_filter = (DepartmentFilterForCity, 'created_at',)
 
-@admin.register(AddressZoneGroup)
+@admin.register(AddressZoneGroup, site=custom_admin_site)
 class AddressZoneGroupAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name', 'created_at',)
     list_filter = ('created_at',)
 
-@admin.register(AddressDistrict)
+@admin.register(AddressDistrict, site=custom_admin_site)
 class AddressDistrictAdmin(admin.ModelAdmin):
     list_display = ('name', 'city', 'get_department', 'zone_group',)
     search_fields = ('name',)
-    list_filter = (CityFilterForDistrict, 'zone_group', 'created_at',)
+    list_filter = ('city', 'city__department', 'zone_group', 'created_at',)
 
     def get_department(self, obj):
         return obj.city.department.name
     get_department.short_description = 'Departamento'
 
-@admin.register(Address)
+@admin.register(Address, site=custom_admin_site)
 class AddressAdmin(admin.ModelAdmin):
     list_display = ('name', 'district', 'get_city', 'get_department', 'get_zone_group',)
     search_fields = ('name',)
-    list_filter = (DistrictFilter, CityFilterForAddress, DepartmentFilterForAddress, 'created_at',)
+    #list_filter = (DistrictFilter, CityFilterForAddress, DepartmentFilterForAddress, 'created_at',)
+    list_filter = ('district', 'district__city', 'district__city__department')
+    #list_filter = (
+    #    ('district', RelatedDropdownFilter),  # Filtrar por distrito con un menú desplegable
+    #    ('district__city', RelatedDropdownFilter),  # Filtrar por ciudad a través del distrito
+    #    ('district__city__department', RelatedDropdownFilter),  # Filtrar por departamento a través de ciudad y distrito
+    #    'created_at',
+    #)
 
     def get_city(self, obj):
         return obj.district.city.name
