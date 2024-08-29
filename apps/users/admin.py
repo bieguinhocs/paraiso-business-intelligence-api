@@ -1,5 +1,6 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
+from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm 
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from .models import CustomUser
@@ -16,11 +17,13 @@ except admin.sites.NotRegistered:
 
 @admin.register(User)
 class UserAdmin(UserAdmin, ModelAdmin):
-    pass
+    form = UserChangeForm
+    add_form = UserCreationForm
+    change_password_form = AdminPasswordChangeForm
 
 @admin.register(Group)
 class GroupAdmin(GroupAdmin, ModelAdmin):
-    pass
+    pass   
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin, ModelAdmin):
