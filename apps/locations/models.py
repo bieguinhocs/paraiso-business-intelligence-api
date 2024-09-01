@@ -25,7 +25,7 @@ class AddressCity(models.Model):
     def __str__(self):
         return self.name
 
-class AddressZoneGroup(models.Model):
+class AddressZonalGroup(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
@@ -39,7 +39,7 @@ class AddressZoneGroup(models.Model):
 class AddressDistrict(models.Model):
     name = models.CharField(_('name'), max_length=255)
     city = models.ForeignKey(AddressCity, on_delete=models.CASCADE, verbose_name=_('city'))
-    zone_group = models.ForeignKey(AddressZoneGroup, on_delete=models.CASCADE, verbose_name=_('zonal group'))
+    zonal_group = models.ForeignKey(AddressZonalGroup, on_delete=models.CASCADE, verbose_name=_('zonal group'))
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:

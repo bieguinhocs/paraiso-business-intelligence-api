@@ -1,9 +1,9 @@
 from rest_framework import viewsets, permissions
-from .models import AddressDepartment, AddressCity, AddressZoneGroup, AddressDistrict, Address
+from .models import AddressDepartment, AddressCity, AddressZonalGroup, AddressDistrict, Address
 from .serializers import (
     AddressDepartmentSerializer,
     AddressCitySerializer,
-    AddressZoneGroupSerializer,
+    AddressZonalGroupSerializer,
     AddressDistrictSerializer,
     AddressSerializer
 )
@@ -18,10 +18,10 @@ class AddressCityViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
     serializer_class = AddressCitySerializer
 
-class AddressZoneGroupViewSet(viewsets.ModelViewSet):
-    queryset = AddressZoneGroup.objects.all()
+class AddressZonalGroupViewSet(viewsets.ModelViewSet):
+    queryset = AddressZonalGroup.objects.all()
     permission_classes = [permissions.AllowAny]
-    serializer_class = AddressZoneGroupSerializer
+    serializer_class = AddressZonalGroupSerializer
 
 class AddressDistrictViewSet(viewsets.ModelViewSet):
     queryset = AddressDistrict.objects.all()

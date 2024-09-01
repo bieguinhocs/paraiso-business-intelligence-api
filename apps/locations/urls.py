@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     AddressDepartmentViewSet,
     AddressCityViewSet,
-    AddressZoneGroupViewSet,
+    AddressZonalGroupViewSet,
     AddressDistrictViewSet,
     AddressViewSet
 )
@@ -11,7 +11,7 @@ from .views import (
 router = DefaultRouter()
 router.register(r'departments', AddressDepartmentViewSet)
 router.register(r'cities', AddressCityViewSet)
-router.register(r'zone-groups', AddressZoneGroupViewSet)
+router.register(r'zonal-groups', AddressZonalGroupViewSet)
 router.register(r'districts', AddressDistrictViewSet)
 router.register(r'addresses', AddressViewSet)
 

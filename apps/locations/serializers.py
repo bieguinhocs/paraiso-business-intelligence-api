@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import AddressDepartment, AddressCity, AddressZoneGroup, AddressDistrict, Address
+from .models import AddressDepartment, AddressCity, AddressZonalGroup, AddressDistrict, Address
 
 class AddressDepartmentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,9 +13,9 @@ class AddressCitySerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('created_at', )
 
-class AddressZoneGroupSerializer(serializers.ModelSerializer):
+class AddressZonalGroupSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AddressZoneGroup
+        model = AddressZonalGroup
         fields = '__all__'
         read_only_fields = ('created_at', )
 
