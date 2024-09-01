@@ -30,6 +30,33 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
     change_password_form = AdminPasswordChangeForm
+    add_fieldsets = (
+        (
+            _('Personal info'), 
+            {
+                'fields': (
+                    'dni',
+                    (
+                        'first_name',
+                        'last_name',
+                    ),
+                    'supervisor',
+                ),
+                'classes': ('wide',),
+            },
+        ),
+        (
+            _('Credentials'),
+            {
+                'fields': (
+                    'username',
+                    'password1',
+                    'password2',
+                ),
+                'classes': ('wide',),
+            }
+        ),
+    )
     list_display = (
         'display_header',
         'dni',
@@ -111,7 +138,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     
     @display(description=_('Name'))
     def display_name(self, instance: User):
-        return instance.first_name + ', ' + instance.last_name
+        return instance.last_name + ', ' + instance.first_name
 
     @display(description=_('Staff'), boolean=True)
     def display_staff(self, instance: User):
