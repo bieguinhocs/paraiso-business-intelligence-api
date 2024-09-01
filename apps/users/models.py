@@ -24,3 +24,9 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.username})"
+
+    @property
+    def full_name(self):
+        if self.first_name and self.last_name:
+            return f"{self.last_name}, {self.first_name}"
+        return None

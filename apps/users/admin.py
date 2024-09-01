@@ -138,7 +138,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     
     @display(description=_('Name'))
     def display_name(self, instance: User):
-        return instance.last_name + ', ' + instance.first_name
+        return instance.full_name
 
     @display(description=_('Staff'), boolean=True)
     def display_staff(self, instance: User):
