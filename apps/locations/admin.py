@@ -43,6 +43,11 @@ class AddressDepartmentAdmin(ModelAdmin):
     @display(description=_('Created'))
     def display_created(self, instance: AddressDepartment):
         return instance.created_at
+    
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        queryset = queryset.order_by('name')
+        return queryset, use_distinct
 
 @admin.register(AddressCity)
 class AddressCityAdmin(ModelAdmin):
@@ -79,6 +84,9 @@ class AddressCityAdmin(ModelAdmin):
             },
         ),
     )
+    autocomplete_fields = (
+        'department',
+    )
     readonly_fields = (
         'created_at',
     )
@@ -86,6 +94,13 @@ class AddressCityAdmin(ModelAdmin):
     @display(description=_('Created'))
     def display_created(self, instance: AddressCity):
         return instance.created_at
+    
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        queryset = queryset.order_by('department__name', 'name',)
+        for city in queryset:
+            city.name = f"{city.department.name} - {city.name}"
+        return queryset, use_distinct
 
 @admin.register(AddressZonalGroup)
 class AddressZonalGroupAdmin(ModelAdmin):
@@ -127,6 +142,11 @@ class AddressZonalGroupAdmin(ModelAdmin):
     @display(description=_('Created'))
     def display_created(self, instance: AddressZonalGroup):
         return instance.created_at
+    
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        queryset = queryset.order_by('name')
+        return queryset, use_distinct
 
 @admin.register(AddressDistrict)
 class AddressDistrictAdmin(ModelAdmin):
@@ -152,7 +172,10 @@ class AddressDistrictAdmin(ModelAdmin):
             {
                 'fields': (
                     'name',
-                    'city',
+                    (
+                        'city',
+                        'display_department',
+                    ),
                     'zonal_group',
                 ),
                 'classes': ['tab',],
@@ -168,8 +191,13 @@ class AddressDistrictAdmin(ModelAdmin):
             },
         ),
     )
+    autocomplete_fields = (
+        'city',
+        'zonal_group',
+    )
     readonly_fields = (
         'created_at',
+        'display_department',
     )
 
     @display(description=_('Department'))
@@ -179,6 +207,13 @@ class AddressDistrictAdmin(ModelAdmin):
     @display(description=_('Created'))
     def display_created(self, instance: AddressDistrict):
         return instance.created_at
+    
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        queryset = queryset.order_by('city__name', 'name',)
+        for district in queryset:
+            district.name = f"{district.city.department.name} - {district.city.name} - {district.name}"
+        return queryset, use_distinct
 
 @admin.register(Address)
 class AddressAdmin(ModelAdmin):
@@ -205,8 +240,14 @@ class AddressAdmin(ModelAdmin):
             {
                 'fields': (
                     'name',
-                    'district',
-                    #'district__city',
+                    (
+                        'district',
+                        'display_zonal_group'
+                    ),
+                    (
+                        'display_city',
+                        'display_department',
+                    ),
                 ),
                 'classes': ['tab',],
             },
@@ -233,8 +274,14 @@ class AddressAdmin(ModelAdmin):
             },
         ),
     )
+    autocomplete_fields = (
+        'district',
+    )
     readonly_fields = (
         'created_at',
+        'display_city',
+        'display_department',
+        'display_zonal_group',
     )
 
     @display(description=_('Created'))
