@@ -154,13 +154,27 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     def display_status(self, instance: User):
         return _('active') if instance.is_active else _('inactive')
     
-    @display(description=_('Staff'), boolean=True)
+    @display(
+        description=_('Staff'),
+        label={
+            _('no'): 'danger',
+            _('yes'): 'success',
+        },
+        boolean=True
+    )
     def display_staff(self, instance: User):
-        return instance.is_staff
+        return _('yes') if instance.is_staff else _('no')
 
-    @display(description=_('Superuser'), boolean=True)
+    @display(
+        description=_('Superuser'),
+        label={
+            _('no'): 'danger',
+            _('yes'): 'success',
+        },
+        boolean=True
+    )
     def display_superuser(self, instance: User):
-        return instance.is_superuser
+        return _('yes') if instance.is_superuser else _('no')
 
     @display(description=_('Created'))
     def display_created(self, instance: User):
