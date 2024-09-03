@@ -12,12 +12,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os, sys
 from pathlib import Path
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Agrega la carpeta 'apps' al sistema de módulos
-sys.path.insert(0, str(BASE_DIR / "apps"))
+sys.path.insert(0, str(BASE_DIR / 'apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -35,12 +38,12 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'unfold',
-    "unfold.contrib.filters",  # optional, if special filters are needed
-    "unfold.contrib.forms",  # optional, if special form elements are needed
-    "unfold.contrib.inlines",  # optional, if special inlines are needed
-    "unfold.contrib.import_export",  # optional, if django-import-export package is used
-    "unfold.contrib.guardian",  # optional, if django-guardian package is used
-    "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
+    'unfold.contrib.filters',
+    'unfold.contrib.forms',
+    'unfold.contrib.inlines',
+    'unfold.contrib.import_export',
+    'unfold.contrib.guardian',
+    'unfold.contrib.simple_history',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,8 +131,9 @@ TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_L10N = False # Date format
 
+USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -142,3 +146,118 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+UNFOLD = {
+    'SITE_TITLE': 'Below Admin',
+    'SITE_HEADER': 'Below Admin',
+    'SITE_URL': '/',
+    ## 'SITE_ICON': lambda request: static('icon.svg'),  # both modes, optimise for 32px height
+    #'SITE_ICON': {
+    #    'light': lambda request: static('icon-light.svg'),  # light mode
+    #    'dark': lambda request: static('icon-dark.svg'),  # dark mode
+    #},
+    ## 'SITE_LOGO': lambda request: static('logo.svg'),  # both modes, optimise for 32px height
+    #'SITE_LOGO': {
+    #    'light': lambda request: static('logo-light.svg'),  # light mode
+    #    'dark': lambda request: static('logo-dark.svg'),  # dark mode
+    #},
+    'SITE_SYMBOL': 'home',  # symbol from icon set
+    'SITE_FAVICONS': [
+        {
+            'rel': 'icon',
+            'sizes': '32x32',
+            'type': 'image/svg+xml',
+            'href': lambda request: static('favicon.svg'),
+        },
+    ],
+    'SHOW_HISTORY': True,
+    'SHOW_VIEW_ON_SITE': False,
+    #'THEME': 'dark', # Force theme: 'dark' or 'light'. Will disable theme switcher
+    'LOGIN': {
+        #'image': lambda request: static('sample/login-bg.jpg'),
+        #'redirect_after': lambda request: reverse_lazy('admin:APP_MODEL_changelist'),
+    },
+    'STYLES': [
+        lambda request: static('css/style.css'),
+    ],
+    'SCRIPTS': [
+        lambda request: static('js/script.js'),
+    ],
+    'COLORS': {
+        'primary': {
+            '50': '255 248 240',
+            '100': '255 233 212',
+            '200': '255 210 173',
+            '300': '255 184 117',
+            '400': '255 149 58',
+            '500': '255 120 10',
+            '600': '234 108 9',
+            '700': '206 94 8',
+            '800': '168 77 7',
+            '900': '135 62 5',
+            '950': '100 45 3',
+        },
+    },
+    'EXTENSIONS': {
+        'modeltranslation': {
+            'flags': {
+                'es': '🇪🇸',
+                'en': '🇬🇧',
+            },
+        },
+    },
+    'SIDEBAR': {
+        'show_search': True,
+        'show_all_applications': True,
+        'navigation': [
+            {
+                'title': _('Locations'),
+                'collapsible': False,
+                'items': [
+                    {
+                        'title': _('Departments'),
+                        'icon': 'south_america',
+                        'link': reverse_lazy('admin:locations_addressdepartment_changelist'),
+                    },
+                    {
+                        'title': _('Cities'),
+                        'icon': 'emoji_transportation',
+                        'link': reverse_lazy('admin:locations_addresscity_changelist'),
+                    },
+                    {
+                        'title': _('Districts'),
+                        'icon': 'home_work',
+                        'link': reverse_lazy('admin:locations_addressdistrict_changelist'),
+                    },
+                    {
+                        'title': _('Zonal groups'),
+                        'icon': 'explore',
+                        'link': reverse_lazy('admin:locations_addresszonalgroup_changelist'),
+                    },
+                    {
+                        'title': _('Addresses'),
+                        'icon': 'distance',
+                        'link': reverse_lazy('admin:locations_address_changelist'),
+                    },
+                ],
+            },
+            {
+                'title': _('Users & Groups'),
+                'collapsible': False,
+                'items': [
+                    {
+                        'title': _('Users'),
+                        'icon': 'person',
+                        'link': reverse_lazy('admin:users_customuser_changelist'),
+                    },
+                    {
+                        'title': _('Groups'),
+                        'icon': 'group',
+                        'link': reverse_lazy('admin:auth_group_changelist'),
+                    },
+                ],
+            },
+            
+        ],
+    },
+}
