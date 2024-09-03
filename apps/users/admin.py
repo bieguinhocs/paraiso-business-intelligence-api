@@ -6,6 +6,7 @@ from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from .models import CustomUser
 from django.utils.translation import gettext_lazy as _
 from unfold.decorators import display
+from django.utils.html import format_html
 
 try:
     admin.site.unregister(User)
@@ -61,7 +62,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         'display_header',
         'dni',
         'display_name',
-        'is_active',
+        'display_status',
         'display_staff',
         'display_superuser',
         'display_created',
@@ -142,7 +143,17 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     @display(description=_('Name'))
     def display_name(self, instance: User):
         return instance.full_name
-
+    
+    @display(
+        description=_('Status'),
+        label={
+            _('inactive'): 'danger',
+            _('active'): 'success',
+        },
+    )
+    def display_status(self, instance: User):
+        return _('active') if instance.is_active else _('inactive')
+    
     @display(description=_('Staff'), boolean=True)
     def display_staff(self, instance: User):
         return instance.is_staff
