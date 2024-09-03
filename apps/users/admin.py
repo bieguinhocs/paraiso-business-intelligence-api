@@ -6,7 +6,6 @@ from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from .models import CustomUser
 from django.utils.translation import gettext_lazy as _
 from unfold.decorators import display
-from django.utils.html import format_html
 
 try:
     admin.site.unregister(User)
@@ -36,7 +35,10 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
             _('Personal info'), 
             {
                 'fields': (
-                    'dni',
+                    (
+                        'document_type',
+                        'document_number',
+                    ),
                     (
                         'first_name',
                         'last_name',
@@ -59,9 +61,10 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         ),
     )
     list_display = (
-        'display_header',
-        'dni',
+        'display_username',
         'display_name',
+        'display_document_type',
+        'display_document_number',
         'display_status',
         'display_staff',
         'display_superuser',
@@ -69,7 +72,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     )
     search_fields = (
         'username',
-        'dni',
+        'document_number',
         'first_name',
         'last_name'
     )
@@ -88,7 +91,10 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
             _('Personal info'),
             {
                 'fields': (
-                    'dni',
+                    (
+                        'document_type',
+                        'document_number',
+                    ),
                     (
                         'first_name',
                         'last_name',
@@ -131,18 +137,29 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     autocomplete_fields = (
         'supervisor',
     )
+    radio_fields = {
+        'document_type': admin.VERTICAL,
+    }
     readonly_fields = (
         'last_login',
         'created_at',
     )
 
     @display(description=_('User'))
-    def display_header(self, instance: User):
+    def display_username(self, instance: User):
         return instance.username
     
     @display(description=_('Name'))
     def display_name(self, instance: User):
         return instance.full_name
+    
+    @display(description=_('Document type'), label=True)
+    def display_document_type(self, instance: User):
+        return instance.document_type
+    
+    @display(description=_('Document No.'))
+    def display_document_number(self, instance: User):
+        return instance.document_number
     
     @display(
         description=_('Status'),
