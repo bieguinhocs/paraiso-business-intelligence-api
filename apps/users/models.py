@@ -5,6 +5,8 @@ from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
 
 def validate_document_number(value, document_type):
+    if not value.isdigit():
+        raise ValidationError(_('El número de documento debe contener solo dígitos numéricos.'))
     if document_type == 'DNI' and len(value) != 8:
         raise ValidationError(_('Document number must be exactly 8 digits for DNI.'))
     elif document_type == 'CE' and len(value) != 9:
