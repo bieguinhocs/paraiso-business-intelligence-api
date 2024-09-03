@@ -4,14 +4,6 @@ from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
 
-def validate_document_number(value, document_type):
-    if not value.isdigit():
-        raise ValidationError(_('El número de documento debe contener solo dígitos numéricos.'))
-    if document_type == 'DNI' and len(value) != 8:
-        raise ValidationError(_('Document number must be exactly 8 digits for DNI.'))
-    elif document_type == 'CE' and len(value) != 9:
-        raise ValidationError(_('Document number must be exactly 9 digits for foreigner card.'))
-
 class CustomUser(AbstractUser):
     DOCUMENT_TYPE_CHOICES = [
         ('DNI', 'DNI'),
@@ -45,6 +37,24 @@ class CustomUser(AbstractUser):
             return f"{self.last_name}, {self.first_name}"
         return None
     
+    def validate_document_number(self):
+        if not self.document_number.isdigit():
+            raise ValidationError(_('The document number must contain only numerical digits.'))
+        if self.document_type == 'DNI' and len(self.document_number) != 8:
+            raise ValidationError(_('Document number must be exactly 8 digits for DNI.'))
+        elif self.document_type == 'CE' and len(self.document_number) != 9:
+            raise ValidationError(_('Document number must be exactly 9 digits for foreigner card.'))
+
+    def format_name(self, name):
+        exceptions = {'de', 'del'}
+        words = name.lower().split()
+        return ' '.join([word.capitalize() if word not in exceptions else word for word in words])
+    
     def clean(self):
         super().clean()
-        validate_document_number(self.document_number, self.document_type)
+        self.validate_document_number()
+        
+    def save(self, *args, **kwargs):
+        self.first_name = self.format_name(self.first_name)
+        self.last_name = self.format_name(self.last_name)
+        super().save(*args, **kwargs)
