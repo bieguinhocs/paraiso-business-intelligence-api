@@ -6,6 +6,7 @@ from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from .models import CustomUser
 from django.utils.translation import gettext_lazy as _
 from unfold.decorators import display
+from django.templatetags.static import static
 
 try:
     admin.site.unregister(User)
@@ -53,8 +54,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         ),
     )
     list_display = (
-        'display_username',
-        'display_name',
+        'display_user',
         'display_document_type',
         'display_document_number',
         'display_status',
@@ -136,16 +136,29 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         'last_login',
         'created_at',
     )
-
+    
     @display(description=_('User'))
     def display_username(self, instance: User):
         return instance.username
     
-    @display(description=_('Name'))
-    def display_name(self, instance: User):
-        return instance.full_name
+    @display(description=_('Name'), header=True)
+    def display_user(self, instance: User):
+        """
+        Muestra el nombre completo en la primera línea,los roles en la segunda,
+        y un avatar en un círculo.
+        """
+        return [
+            instance.full_name,
+            instance.groups_list,
+            None,
+            {
+                "path": static("images/avatar.jpg"),
+                "squared": False,
+                "borderless": True,
+            }
+        ]
     
-    @display(description=_('Document type'), label=True)
+    @display(description=_('Document'), label=True)
     def display_document_type(self, instance: User):
         return instance.document_type
     
