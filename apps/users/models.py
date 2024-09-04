@@ -48,6 +48,11 @@ class CustomUser(AbstractUser):
             return f"{self.last_name}, {self.first_name}"
         return None
     
+    @property
+    def groups_list(self):
+        # Devuelve una lista con los grupos a los que pertenece el usuario
+        return ", ".join([group.name for group in self.groups.all()])
+    
     def validate_document_number(self):
         if not self.document_number.isdigit():
             raise ValidationError(_('The document number must contain only numerical digits.'))
