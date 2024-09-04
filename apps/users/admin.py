@@ -17,14 +17,6 @@ try:
 except admin.sites.NotRegistered:
     pass
 
-@admin.register(User)
-class UserAdmin(UserAdmin, ModelAdmin):
-    pass
-
-@admin.register(Group)
-class GroupAdmin(GroupAdmin, ModelAdmin):
-    pass
-
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin, ModelAdmin):
     form = UserChangeForm
@@ -197,3 +189,16 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     def display_created(self, instance: User):
         return instance.created_at
    
+@admin.register(Group)
+class GroupAdmin(GroupAdmin, ModelAdmin):
+    fieldsets = (
+        (
+            _('Overview'),
+            {
+                'fields': (
+                    'name',
+                    'permissions',
+                ),
+            },
+        ),
+    )
