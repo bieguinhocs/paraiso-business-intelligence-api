@@ -137,11 +137,11 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         'created_at',
     )
     
-    @display(description=_('User'))
+    @display(description=_('Username'))
     def display_username(self, instance: User):
         return instance.username
     
-    @display(description=_('Name'), header=True)
+    @display(description=_('User'), header=True)
     def display_user(self, instance: User):
         """
         Muestra el nombre completo en la primera línea,los roles en la segunda,
