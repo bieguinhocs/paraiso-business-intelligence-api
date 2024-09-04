@@ -140,7 +140,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     @display(description=_('Username'))
     def display_username(self, instance: User):
         return instance.username
-    
+
     @display(description=_('User'), header=True)
     def display_user(self, instance: User):
         """
@@ -206,9 +206,9 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         # Verifica si la búsqueda de autocompletar es para el campo 'supervisor'
         if request.GET.get('field_name') == 'supervisor':
             queryset, use_distinct = super().get_search_results(request, queryset, search_term)
-            # Filtra los usuarios que pertenecen al grupo 'Coordinador'
+            # Filtra los usuarios que pertenecen al grupo 'Coordinador' y están activos
             coordinador_group = Group.objects.get(name='Coordinador')
-            queryset = queryset.filter(groups=coordinador_group)
+            queryset = queryset.filter(groups=coordinador_group, is_active=True)
             return queryset, use_distinct
 
         # Comportamiento predeterminado para otros campos
