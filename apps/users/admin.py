@@ -188,7 +188,19 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     @display(description=_('Created'))
     def display_created(self, instance: User):
         return instance.created_at
-   
+    
+    def get_search_results(self, request, queryset, search_term):
+        # Verifica si la búsqueda de autocompletar es para el campo 'supervisor'
+        if request.GET.get('field_name') == 'supervisor':
+            queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+            # Filtra los usuarios que pertenecen al grupo 'Coordinador'
+            coordinador_group = Group.objects.get(name='Coordinador')
+            queryset = queryset.filter(groups=coordinador_group)
+            return queryset, use_distinct
+
+        # Comportamiento predeterminado para otros campos
+        return super().get_search_results(request, queryset, search_term)
+
 @admin.register(Group)
 class GroupAdmin(GroupAdmin, ModelAdmin):
     fieldsets = (
