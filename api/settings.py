@@ -140,6 +140,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -151,17 +153,11 @@ UNFOLD = {
     'SITE_TITLE': 'Below Admin',
     'SITE_HEADER': 'Below Admin',
     'SITE_URL': '/',
-    ## 'SITE_ICON': lambda request: static('icon.svg'),  # both modes, optimise for 32px height
-    #'SITE_ICON': {
-    #    'light': lambda request: static('icon-light.svg'),  # light mode
-    #    'dark': lambda request: static('icon-dark.svg'),  # dark mode
-    #},
-    ## 'SITE_LOGO': lambda request: static('logo.svg'),  # both modes, optimise for 32px height
-    #'SITE_LOGO': {
-    #    'light': lambda request: static('logo-light.svg'),  # light mode
-    #    'dark': lambda request: static('logo-dark.svg'),  # dark mode
-    #},
-    'SITE_SYMBOL': 'home',  # symbol from icon set
+    'SITE_ICON': {
+        'light': lambda request: static('images/below-light.png'),
+        'dark': lambda request: static('images/below-dark.png'),
+    },
+    'SITE_SYMBOL': 'dashboard',
     'SITE_FAVICONS': [
         {
             'rel': 'icon',
@@ -172,7 +168,6 @@ UNFOLD = {
     ],
     'SHOW_HISTORY': True,
     'SHOW_VIEW_ON_SITE': False,
-    #'THEME': 'dark', # Force theme: 'dark' or 'light'. Will disable theme switcher
     'LOGIN': {
         #'image': lambda request: static('sample/login-bg.jpg'),
         #'redirect_after': lambda request: reverse_lazy('admin:APP_MODEL_changelist'),
@@ -236,7 +231,7 @@ UNFOLD = {
                     },
                     {
                         'title': _('Addresses'),
-                        'icon': 'distance',
+                        'icon': 'pin_drop',
                         'link': reverse_lazy('admin:locations_address_changelist'),
                     },
                 ],
