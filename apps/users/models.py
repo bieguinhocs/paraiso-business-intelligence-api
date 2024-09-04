@@ -1,8 +1,19 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import Group
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from django.contrib.auth.models import Group
+
+@receiver(pre_save, sender=Group)
+def format_group_name(sender, instance, **kwargs):
+    if instance.name:
+        exceptions = {'de', 'del'}
+        words = instance.name.lower().split()
+        instance.name = ' '.join([word.capitalize() if word not in exceptions else word for word in words])
 
 class CustomUser(AbstractUser):
     DOCUMENT_TYPE_CHOICES = [
