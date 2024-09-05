@@ -66,3 +66,73 @@ class StoreChannelAdmin(ModelAdmin):
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)
         queryset = queryset.order_by('name')
         return queryset, use_distinct
+
+@admin.register(StoreRetail)
+class StoreRetailAdmin(ModelAdmin):
+    add_fieldsets = (
+        (
+            _('Overview'), 
+            {
+                'fields': (
+                    'code',
+                    'name',
+                    'business_name',
+                    'channel',
+                ),
+                'classes': ('wide',),
+            },
+        ),
+    )
+    list_display = (
+        'code',
+        'name',
+        'business_name',
+        'channel',
+        'display_created',
+    )
+    search_fields = (
+        'code',
+        'name',
+        'business_name',
+    )
+    list_filter = (
+        'created_at',
+    )
+    fieldsets = (
+        (
+            _('Overview'),
+            {
+                'fields': (
+                    'code',
+                    'name',
+                    'business_name',
+                    'channel',
+                ),
+                'classes': ['tab',],
+            },
+        ),
+        (
+            _('Important dates'),
+            {
+                'fields': (
+                    'created_at',
+                ),
+                'classes': ['tab',],
+            },
+        ),
+    )
+    autocomplete_fields = (
+        'channel',
+    )
+    readonly_fields = (
+        'created_at',
+    )
+
+    @display(description=_('Created'))
+    def display_created(self, instance: StoreRetail):
+        return instance.created_at
+    
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        queryset = queryset.order_by('code', 'name')
+        return queryset, use_distinct
