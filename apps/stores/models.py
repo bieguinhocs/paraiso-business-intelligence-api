@@ -1,6 +1,21 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+import re
+
+def format_code(code):
+    # Split the code into letters and numbers
+    match = re.match(r"([a-zA-Z]+)(\d+)", code)
+    if match:
+        letters = match.group(1).upper()  # Convert letters to uppercase
+        numbers = match.group(2)  # Keep numbers as is
+        return f"{letters}{numbers}"
+    return code.upper()  # In case the format is different, return it in uppercase
+
+def format_text(name):
+    exceptions = {'de', 'del'}
+    words = name.lower().split()
+    return ' '.join([word.capitalize() if word not in exceptions else word for word in words])
 
 class StoreChannel(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -13,6 +28,13 @@ class StoreChannel(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        super().clean()
+        self.name = format_text(self.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
 class StoreRetail(models.Model):
     code = models.CharField(_('code'), max_length=100, unique=True)
@@ -27,6 +49,14 @@ class StoreRetail(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        super().clean()
+        self.code = format_code(self.code)
+        self.name = format_text(self.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
 class Store(models.Model):
     code = models.CharField(_('code'), max_length=100, unique=True, blank=True, null=True)
@@ -45,3 +75,11 @@ class Store(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        super().clean()
+        self.code = format_code(self.code)
+        self.name = format_text(self.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
