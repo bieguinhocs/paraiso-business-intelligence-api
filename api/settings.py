@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'django_admin_listfilter_dropdown',
 
     'apps.users',
-    'apps.locations',    
+    'apps.locations', 
+    'apps.stores',
 ]
 
 MIDDLEWARE = [
