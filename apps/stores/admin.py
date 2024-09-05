@@ -7,6 +7,7 @@ from .models import (
 )
 from django.utils.translation import gettext_lazy as _
 from unfold.decorators import display
+from django.templatetags.static import static
 
 @admin.register(StoreChannel)
 class StoreChannelAdmin(ModelAdmin):
@@ -183,7 +184,7 @@ class StoreAdmin(ModelAdmin):
         'code',
         'name',
         'retail',
-        'coordinator',
+        'display_coordinator',
         'display_coverage',
         'display_created',
     )
@@ -252,6 +253,23 @@ class StoreAdmin(ModelAdmin):
     def display_channel(self, instance: Store):
         return instance.retail.channel
     
+    @display(description=_('Coordinator'), header=True)
+    def display_coordinator(self, instance: Store):
+        """
+        Muestra el nombre completo en la primera línea, el usuario en la segunda,
+        y un avatar en un círculo.
+        """
+        return [
+            instance.coordinator.full_name,
+            instance.coordinator.get_username,
+            None,
+            {
+                "path": static("images/avatar.jpg"),
+                "squared": False,
+                "borderless": True,
+            }
+        ]
+
     @display(
         description=_('Coverage'),
         label={
