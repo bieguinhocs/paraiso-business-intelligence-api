@@ -96,6 +96,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
                         'corporate_phone',
                         'corporate_device_imei',
                     ),
+                    'address',
                     'supervisor',
                 ),
                 'classes': ['tab',],
@@ -127,6 +128,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         ),
     )
     autocomplete_fields = (
+        'address',
         'supervisor',
     )
     radio_fields = {
