@@ -282,7 +282,7 @@ class AddressAdmin(ModelAdmin):
                         'display_department',
                     ),
                 ),
-                'classes': ['tab',],
+                'classes': ('wide',),
             },
         ),
         (
@@ -294,7 +294,7 @@ class AddressAdmin(ModelAdmin):
                         'longitude',
                     ),  
                 ),
-                'classes': ['tab',],
+                'classes': ('wide',),
             },
         ),
     )
