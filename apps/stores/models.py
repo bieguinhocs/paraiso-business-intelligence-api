@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 class StoreChannel(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
     description = models.TextField(_('description'), blank=True)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:
         verbose_name = _('store channel')
@@ -18,6 +19,7 @@ class StoreRetail(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
     business_name = models.CharField(_('business name'), max_length=255, blank=True, null=True)
     channel = models.ForeignKey(StoreChannel, on_delete=models.CASCADE, verbose_name=_('channel'))
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:
         verbose_name = _('store retail')
@@ -28,6 +30,7 @@ class StoreRetail(models.Model):
 
 class StoreCoverage(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:
         verbose_name = _('store coverage')
@@ -45,6 +48,7 @@ class Store(models.Model):
     retail = models.ForeignKey(StoreRetail, on_delete=models.CASCADE, verbose_name=_('retail'))
     coverage = models.ForeignKey(StoreCoverage, on_delete=models.CASCADE, verbose_name=_('coverage'))
     promoters = models.ManyToManyField(get_user_model(), related_name='promoter_stores', verbose_name=_('promoters'))
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:
         verbose_name = _('store')
