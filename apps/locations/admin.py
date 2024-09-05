@@ -6,6 +6,17 @@ from unfold.decorators import display
 
 @admin.register(AddressDepartment)
 class AddressDepartmentAdmin(ModelAdmin):
+    add_fieldsets = (
+        (
+            _('Overview'), 
+            {
+                'fields': (
+                    'name',
+                ),
+                'classes': ('wide',),
+            },
+        ),
+    )
     list_display = (
         'name',
         'display_created',
@@ -51,6 +62,18 @@ class AddressDepartmentAdmin(ModelAdmin):
 
 @admin.register(AddressCity)
 class AddressCityAdmin(ModelAdmin):
+    add_fieldsets = (
+        (
+            _('Overview'), 
+            {
+                'fields': (
+                    'name',
+                    'department',
+                ),
+                'classes': ('wide',),
+            },
+        ),
+    )
     list_display = (
         'name',
         'department',
@@ -104,6 +127,17 @@ class AddressCityAdmin(ModelAdmin):
 
 @admin.register(AddressZonalGroup)
 class AddressZonalGroupAdmin(ModelAdmin):
+    add_fieldsets = (
+        (
+            _('Overview'), 
+            {
+                'fields': (
+                    'name',
+                ),
+                'classes': ('wide',),
+            },
+        ),
+    )
     list_display = (
         'name',
         'display_created',
@@ -150,6 +184,22 @@ class AddressZonalGroupAdmin(ModelAdmin):
 
 @admin.register(AddressDistrict)
 class AddressDistrictAdmin(ModelAdmin):
+    add_fieldsets = (
+        (
+            _('Overview'), 
+            {
+                'fields': (
+                    'name',
+                    (
+                        'city',
+                        'display_department',
+                    ),
+                    'zonal_group',
+                ),
+                'classes': ('wide',),
+            },
+        ),
+    )
     list_display = (
         'name',
         'city',
@@ -217,6 +267,37 @@ class AddressDistrictAdmin(ModelAdmin):
 
 @admin.register(Address)
 class AddressAdmin(ModelAdmin):
+    add_fieldsets = (
+        (
+            _('Overview'),
+            {
+                'fields': (
+                    'name',
+                    (
+                        'district',
+                        'display_zonal_group'
+                    ),
+                    (
+                        'display_city',
+                        'display_department',
+                    ),
+                ),
+                'classes': ['tab',],
+            },
+        ),
+        (
+            _('Location'),
+            {
+                'fields': (
+                    (
+                        'latitude',
+                        'longitude',
+                    ),  
+                ),
+                'classes': ['tab',],
+            },
+        ),
+    )
     list_display = (
         'name',
         'district',
