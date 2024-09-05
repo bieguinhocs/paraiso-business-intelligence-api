@@ -3,7 +3,6 @@ from unfold.admin import ModelAdmin
 from .models import (
     StoreChannel,
     StoreRetail,
-    StoreCoverage,
     Store
 )
 from django.utils.translation import gettext_lazy as _
@@ -74,10 +73,14 @@ class StoreRetailAdmin(ModelAdmin):
             _('Overview'), 
             {
                 'fields': (
-                    'code',
-                    'name',
-                    'business_name',
-                    'channel',
+                    (
+                        'code',
+                        'channel',
+                    ),
+                    (
+                        'name',
+                        'business_name',
+                    ),
                 ),
                 'classes': ('wide',),
             },
@@ -103,10 +106,14 @@ class StoreRetailAdmin(ModelAdmin):
             _('Overview'),
             {
                 'fields': (
-                    'code',
-                    'name',
-                    'business_name',
-                    'channel',
+                    (
+                        'code',
+                        'channel',
+                    ),
+                    (
+                        'name',
+                        'business_name',
+                    ),
                 ),
                 'classes': ['tab',],
             },
@@ -130,6 +137,133 @@ class StoreRetailAdmin(ModelAdmin):
 
     @display(description=_('Created'))
     def display_created(self, instance: StoreRetail):
+        return instance.created_at
+    
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        queryset = queryset.order_by('code', 'name')
+        return queryset, use_distinct
+
+@admin.register(Store)
+class StoreAdmin(ModelAdmin):
+    add_fieldsets = (
+        (
+            _('Overview'), 
+            {
+                'fields': (
+                        'code',
+                    (
+                        'name',
+                        'sellout_name',
+                    ),
+                    (
+                        'retail',
+                        'display_channel',
+                    ),
+                    'address',
+                    'is_covered',
+                ),
+                'classes': ('wide',),
+            },
+        ),
+        (
+            _('Operational Team'),
+            {
+                'fields': (
+                    (
+                        'coordinator',
+                        'promoters',
+                    )
+                ),
+                'classes': ('wide',),
+            },
+        ),
+    )
+    list_display = (
+        'code',
+        'name',
+        'retail',
+        'coordinator',
+        'display_coverage',
+        'display_created',
+    )
+    search_fields = (
+        'code',
+        'name',
+        'retail',
+    )
+    list_filter = (
+        'created_at',
+    )
+    fieldsets = (
+        (
+            _('Overview'),
+            {
+                'fields': (
+                        'code',        
+                    (
+                        'name',
+                        'sellout_name',
+                    ),
+                    (
+                        'retail',
+                        'display_channel',
+                    ),
+                        'address',
+                        'is_covered',
+                ),
+                'classes': ['tab',],
+            },
+        ),
+        (
+            _('Operational Team'),
+            {
+                'fields': (
+                    (
+                        'coordinator',
+                        'promoters',
+                    )
+                ),
+                'classes': ['tab',],
+            },
+        ),
+        (
+            _('Important dates'),
+            {
+                'fields': (
+                    'created_at',
+                ),
+                'classes': ['tab',],
+            },
+        ),
+    )
+    autocomplete_fields = (
+        'retail',
+        'coordinator',  
+        'address',
+        'promoters',
+    )
+    readonly_fields = (
+        'created_at',
+        'display_channel'
+    )
+
+    @display(description=_('Channel'))
+    def display_channel(self, instance: Store):
+        return instance.retail.channel
+    
+    @display(
+        description=_('Coverage'),
+        label={
+            _('inactive'): 'danger',
+            _('active'): 'success',
+        },
+    )
+    def display_coverage(self, instance: Store):
+        return _('active') if instance.is_covered else _('inactive')
+
+    @display(description=_('Created'))
+    def display_created(self, instance: Store):
         return instance.created_at
     
     def get_search_results(self, request, queryset, search_term):
