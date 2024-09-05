@@ -207,6 +207,27 @@ UNFOLD = {
         'show_all_applications': True,
         'navigation': [
             {
+                'title': _('Stores'),
+                'collapsible': False,
+                'items': [
+                    {
+                        'title': _('Channels'),
+                        'icon': 'tenancy',
+                        'link': reverse_lazy('admin:stores_storechannel_changelist'),
+                    },
+                    {
+                        'title': _('Retails'),
+                        'icon': 'storefront',
+                        'link': reverse_lazy('admin:stores_storeretail_changelist'),
+                    },     
+                    {
+                        'title': _('Stores'),
+                        'icon': 'store',
+                        'link': reverse_lazy('admin:stores_store_changelist'),
+                    },
+                ],
+            },
+            {
                 'title': _('Locations'),
                 'collapsible': False,
                 'items': [
