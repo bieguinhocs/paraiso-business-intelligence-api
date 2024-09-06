@@ -7,7 +7,7 @@ from unfold.admin import ModelAdmin, StackedInline, TabularInline
 
 class CityInline(TabularInline):
     model = AddressCity
-    fields = ['name']
+    fields = ['name',]
     show_change_link = True
     can_delete = True
     tab = True
@@ -70,8 +70,18 @@ class AddressDepartmentAdmin(ModelAdmin):
         queryset = queryset.order_by('name')
         return queryset, use_distinct
 
+class DistrictInline(TabularInline):
+    model = AddressDistrict
+    fields = ['name', 'zonal_group',]
+    autocomplete_fields = ['zonal_group',]
+    show_change_link = True
+    can_delete = True
+    tab = True
+    extra = 0
+
 @admin.register(AddressCity)
 class AddressCityAdmin(ModelAdmin):
+    inlines = [DistrictInline]
     add_fieldsets = (
         (
             _('Overview'), 
