@@ -8,6 +8,7 @@ from .models import (
 from django.utils.translation import gettext_lazy as _
 from unfold.decorators import display
 from django.templatetags.static import static
+from unfold.admin import ModelAdmin, StackedInline, TabularInline
 
 @admin.register(StoreChannel)
 class StoreChannelAdmin(ModelAdmin):
@@ -67,8 +68,18 @@ class StoreChannelAdmin(ModelAdmin):
         queryset = queryset.order_by('name')
         return queryset, use_distinct
 
+class StoreInline(TabularInline):
+    model = Store
+    fields = ['code', 'name', 'coordinator', 'is_covered']
+    autocomplete_fields = ['coordinator']
+    show_change_link = True
+    can_delete = True
+    tab = True
+    extra = 0
+
 @admin.register(StoreRetail)
 class StoreRetailAdmin(ModelAdmin):
+    inlines = [StoreInline]
     add_fieldsets = (
         (
             _('Overview'), 
