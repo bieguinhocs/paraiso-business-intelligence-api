@@ -36,7 +36,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
                         'first_name',
                         'last_name',
                     ),
-                    'supervisor',
+                    'coordinator',
                 ),
                 'classes': ('wide',),
             },
@@ -97,7 +97,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
                         'corporate_device_imei',
                     ),
                     'address',
-                    'supervisor',
+                    'coordinator',
                 ),
                 'classes': ['tab',],
             },
@@ -129,7 +129,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
     )
     autocomplete_fields = (
         'address',
-        'supervisor',
+        'coordinator',
     )
     radio_fields = {
         'document_type': admin.VERTICAL,
@@ -205,8 +205,8 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         return instance.created_at
     
     def get_search_results(self, request, queryset, search_term):
-        # Verifica si la búsqueda de autocompletar es para el campo 'supervisor'
-        if request.GET.get('field_name') == 'supervisor':
+        # Verifica si la búsqueda de autocompletar es para el campo 'coordinator'
+        if request.GET.get('field_name') == 'coordinator':
             queryset, use_distinct = super().get_search_results(request, queryset, search_term)
             # Filtra los usuarios que pertenecen al grupo 'Coordinador' y están activos
             coordinador_group = Group.objects.get(name='Coordinador')
