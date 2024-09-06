@@ -72,12 +72,17 @@ class AddressDepartmentAdmin(ModelAdmin):
 
 class DistrictInline(TabularInline):
     model = AddressDistrict
-    fields = ['name', 'zonal_group',]
-    autocomplete_fields = ['zonal_group',]
+    fields = ['name', 'zonal_group', 'city', 'display_department']
+    readonly_fields = ['display_department']
+    autocomplete_fields = ['zonal_group', 'city',]
     show_change_link = True
     can_delete = True
     tab = True
     extra = 0
+
+    @display(description=_('Department'))
+    def display_department(self, instance: AddressDistrict):
+        return instance.city.department
 
 @admin.register(AddressCity)
 class AddressCityAdmin(ModelAdmin):
@@ -146,8 +151,11 @@ class AddressCityAdmin(ModelAdmin):
             city.name = f"{city.department.name} - {city.name}"
         return queryset, use_distinct
 
+
+
 @admin.register(AddressZonalGroup)
 class AddressZonalGroupAdmin(ModelAdmin):
+    inlines = [DistrictInline]
     add_fieldsets = (
         (
             _('Overview'), 
