@@ -81,6 +81,7 @@ class AddressCityAdmin(ModelAdmin):
     )
     search_fields = (
         'name',
+        'department__name',
     )
     list_filter = (
         'department',
@@ -209,6 +210,9 @@ class AddressDistrictAdmin(ModelAdmin):
     )
     search_fields = (
         'name',
+        'city__name',
+        'city__department__name',
+        'zonal_group__name',
     )
     list_filter = (
         'city',
@@ -308,6 +312,10 @@ class AddressAdmin(ModelAdmin):
     )
     search_fields = (
         'name',
+        'district__name',
+        'district__city__name',
+        'district__city__department__name',
+        'district__zonal_group__name',
     )
     list_filter = (
         'district',
