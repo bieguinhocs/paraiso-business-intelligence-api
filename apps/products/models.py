@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 class ProductGroup(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:
         verbose_name = _('group')
@@ -15,6 +16,7 @@ class ProductFamily(models.Model):
     code = models.CharField(_('code'), max_length=100, unique=True)
     name = models.CharField(_('name'), max_length=255, unique=True)
     group = models.ForeignKey(ProductGroup, on_delete=models.CASCADE, verbose_name=_('group'))
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:
         verbose_name = _('family')
@@ -25,6 +27,7 @@ class ProductFamily(models.Model):
 
 class ProductLine(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:
         verbose_name = _('line')
@@ -36,6 +39,7 @@ class ProductLine(models.Model):
 class ProductBrand(models.Model):
     code = models.CharField(_('code'), max_length=100, unique=True)
     name = models.CharField(_('name'), max_length=255, unique=True)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:
         verbose_name = _('brand')
@@ -53,7 +57,8 @@ class Product(models.Model):
     family = models.ForeignKey(ProductFamily, on_delete=models.CASCADE, verbose_name=_('family'))
     brand = models.ForeignKey(ProductBrand, on_delete=models.CASCADE, verbose_name=_('brand'))
     retail = models.ForeignKey('stores.StoreRetail', on_delete=models.CASCADE, verbose_name=_('retail'))
-    
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
+
     class Meta:
         verbose_name = _('product')
         verbose_name_plural = _('products')
