@@ -10,8 +10,17 @@ from unfold.decorators import display
 from django.templatetags.static import static
 from unfold.admin import ModelAdmin, StackedInline, TabularInline
 
+class RetailInline(TabularInline):
+    model = StoreRetail
+    fields = ['code', 'name', 'business_name']
+    show_change_link = True
+    can_delete = True
+    tab = True
+    extra = 0
+
 @admin.register(StoreChannel)
 class StoreChannelAdmin(ModelAdmin):
+    inlines = [RetailInline]
     add_fieldsets = (
         (
             _('Overview'), 
