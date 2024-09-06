@@ -3,9 +3,19 @@ from unfold.admin import ModelAdmin
 from .models import AddressDepartment, AddressCity, AddressZonalGroup, AddressDistrict, Address
 from django.utils.translation import gettext_lazy as _
 from unfold.decorators import display
+from unfold.admin import ModelAdmin, StackedInline, TabularInline
+
+class CityInline(TabularInline):
+    model = AddressCity
+    fields = ['name']
+    show_change_link = True
+    can_delete = True
+    tab = True
+    extra = 0
 
 @admin.register(AddressDepartment)
 class AddressDepartmentAdmin(ModelAdmin):
+    inlines = [CityInline]
     add_fieldsets = (
         (
             _('Overview'), 
