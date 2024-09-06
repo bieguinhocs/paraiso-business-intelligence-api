@@ -7,6 +7,8 @@ from .models import CustomUser
 from django.utils.translation import gettext_lazy as _
 from unfold.decorators import display
 from django.templatetags.static import static
+from stores.models import Store
+from unfold.admin import ModelAdmin, StackedInline, TabularInline
 
 try:
     admin.site.unregister(User)
@@ -18,8 +20,19 @@ try:
 except admin.sites.NotRegistered:
     pass
 
+class StoreInline(TabularInline):
+    model = Store
+    fields = ['code', 'name', 'retail', 'is_covered']
+    readonly_fields = ['code', 'name', 'retail',]
+    show_change_link = True
+    can_delete = True
+    tab = True
+    max_num = 0
+    extra = 0
+
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin, ModelAdmin):
+    inlines = [StoreInline,]
     form = UserChangeForm
     add_form = UserCreationForm
     change_password_form = AdminPasswordChangeForm
