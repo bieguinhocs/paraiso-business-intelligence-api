@@ -97,6 +97,7 @@ class StoreRetailAdmin(ModelAdmin):
         'code',
         'name',
         'business_name',
+        'channel__name',
     )
     list_filter = (
         'created_at',
@@ -208,7 +209,9 @@ class StoreAdmin(ModelAdmin):
     search_fields = (
         'code',
         'name',
-        'retail',
+        'retail__name',
+        'coordinator__first_name',
+        'coordinator__last_name',
     )
     list_filter = (
         'created_at',
