@@ -89,9 +89,8 @@ class StoreRetailAdmin(ModelAdmin):
     )
     list_display = (
         'code',
-        'name',
+        'display_retail',
         'business_name',
-        'channel',
         'display_created',
     )
     search_fields = (
@@ -135,6 +134,24 @@ class StoreRetailAdmin(ModelAdmin):
     readonly_fields = (
         'created_at',
     )
+
+    @display(description=_('Name'), header=True)
+    def display_retail(self, instance: StoreRetail):
+        """
+        Muestra el nombre en la primera línea, el canal en la segunda,
+        y un avatar en un círculo.
+        """
+        image_path = f"images/retails/{instance.name.lower()}.jpg"
+        return [
+            instance.name,
+            instance.channel,
+            None,
+            {
+                "path": static(image_path),
+                "squared": False,
+                "borderless": True,
+            }
+        ]
 
     @display(description=_('Created'))
     def display_created(self, instance: StoreRetail):
@@ -183,7 +200,7 @@ class StoreAdmin(ModelAdmin):
     list_display = (
         'code',
         'name',
-        'retail',
+        'display_retail',
         'display_coordinator',
         'display_coverage',
         'display_created',
@@ -252,6 +269,24 @@ class StoreAdmin(ModelAdmin):
     @display(description=_('Channel'))
     def display_channel(self, instance: Store):
         return instance.retail.channel
+    
+    @display(description=_('Retail'), header=True)
+    def display_retail(self, instance: Store):
+        """
+        Muestra el nombre en la primera línea, el canal en la segunda,
+        y un avatar en un círculo.
+        """
+        image_path = f"images/retails/{instance.retail.name.lower()}.jpg"
+        return [
+            instance.retail,
+            instance.retail.channel,
+            None,
+            {
+                "path": static(image_path),
+                "squared": False,
+                "borderless": True,
+            }
+        ]
     
     @display(description=_('Coordinator'), header=True)
     def display_coordinator(self, instance: Store):
