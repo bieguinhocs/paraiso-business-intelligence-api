@@ -66,4 +66,69 @@ class ProductGroupAdmin(ModelAdmin):
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)
         queryset = queryset.order_by('name')
         return queryset, use_distinct
+
+@admin.register(ProductFamily)
+class ProductFamilyAdmin(ModelAdmin):
+    add_fieldsets = (
+        (
+            _('Overview'), 
+            {
+                'fields': (
+                    'code',
+                    'name',
+                    'group',
+                ),
+                'classes': ('wide',),
+            },
+        ),
+    )
+    list_display = (
+        'code',
+        'name',
+        'group',
+        'display_created',
+    )
+    search_fields = (
+        'name',
+    )
+    list_filter = (
+        'created_at',
+    )
+    fieldsets = (
+        (
+            _('Overview'),
+            {
+                'fields': (
+                    'code',
+                    'name',
+                    'group',
+                ),
+                'classes': ['tab',],
+            },
+        ),
+        (
+            _('Important dates'),
+            {
+                'fields': (
+                    'created_at',
+                ),
+                'classes': ['tab',],
+            },
+        ),
+    )
+    autocomplete_fields = (
+        'group',
+    )
+    readonly_fields = (
+        'created_at',
+    )
+
+    @display(description=_('Created'))
+    def display_created(self, instance: ProductFamily):
+        return instance.created_at
+    
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        queryset = queryset.order_by('name')
+        return queryset, use_distinct
     
