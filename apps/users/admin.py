@@ -212,6 +212,14 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
             coordinador_group = Group.objects.get(name='Coordinador')
             queryset = queryset.filter(groups=coordinador_group, is_active=True)
             return queryset, use_distinct
+        
+        # Verifica si la búsqueda de autocompletar es para el campo 'promoters'
+        if request.GET.get('field_name') == 'promoters':
+            queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+            # Filtra los usuarios que pertenecen al grupo 'Promotor' y están activos
+            promoter_group = Group.objects.get(name='Promotor')
+            queryset = queryset.filter(groups=promoter_group, is_active=True)
+            return queryset, use_distinct
 
         # Comportamiento predeterminado para otros campos
         return super().get_search_results(request, queryset, search_term)
