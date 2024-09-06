@@ -7,12 +7,6 @@ from .models import (
     Product
 )
 
-class ProductBrandSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProductBrand
-        fields = '__all__'
-        read_only_fields = ('created_at', )
-
 class ProductGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductGroup
@@ -30,6 +24,12 @@ class ProductFamilySerializer(serializers.ModelSerializer):
 class ProductLineSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductLine
+        fields = '__all__'
+        read_only_fields = ('created_at', )
+
+class ProductBrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductBrand
         fields = '__all__'
         read_only_fields = ('created_at', )
 
