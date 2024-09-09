@@ -461,6 +461,7 @@ class ProductAdmin(ModelAdmin):
                         'display_group',
                     ),
                     'retail',
+                    'description',
                 ),
                 'classes': ('wide',),
             },
@@ -508,6 +509,7 @@ class ProductAdmin(ModelAdmin):
                     ),
                     'retail',
                     'is_active',
+                    'description',
                 ),
                 'classes': ['tab',],
             },
@@ -570,23 +572,25 @@ class ProductAdmin(ModelAdmin):
             }
         ]
 
-    @display(description=_('Brand'), header=True)
+    @display(description=_('Retail'), header=True)
     def display_retail_header(self, instance: Product):
         """
         Muestra el retail en la primera línea, el canal en la segunda,
         y un avatar en un círculo.
         """
-        image_path = f"images/retails/{instance.retail.name.lower()}.jpg"
-        return [
-            instance.retail.name,
-            instance.retail.channel.name,     
-            None,
-            {
-                "path": static(image_path),
-                "squared": False,
-                "borderless": True,
-            }
-        ]
+        if instance.retail:
+            image_path = f"images/retails/{instance.retail.name.lower()}.jpg"
+            return [
+                instance.retail.name,
+                instance.retail.channel.name,     
+                None,
+                {
+                    "path": static(image_path),
+                    "squared": False,
+                    "borderless": True,
+                }
+            ]
+        return []
 
     @display(
         description=_('Status'),
