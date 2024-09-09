@@ -65,7 +65,7 @@ class Store(models.Model):
     address = models.ForeignKey('locations.Address', on_delete=models.CASCADE, null=True, blank=True, verbose_name=_('address'))
     coordinator = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name='coordinator_stores', verbose_name=_('coordinator'))
     retail = models.ForeignKey(StoreRetail, on_delete=models.CASCADE, verbose_name=_('retail'))
-    is_covered = models.BooleanField(_('coverage'), default=False, help_text=_('Indicates whether this store is covered. Uncheck this option if it is not covered.'))
+    is_covered = models.BooleanField(_('coverage'), default=True, help_text=_('Indicates whether this store is covered. Uncheck this option if it is not covered.'))
     promoters = models.ManyToManyField(get_user_model(), blank=True, null=True, related_name='promoter_stores', verbose_name=_('promoters'))
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
@@ -75,6 +75,10 @@ class Store(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def full_name(self):
+        return f"{self.retail.name} {self.name}"
     
     def clean(self):
         super().clean()
