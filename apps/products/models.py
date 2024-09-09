@@ -126,6 +126,7 @@ class Product(models.Model):
     line = models.ForeignKey(ProductLine, on_delete=models.CASCADE, verbose_name=_('line'))
     family = models.ForeignKey(ProductFamily, on_delete=models.CASCADE, verbose_name=_('family'))
     retail = models.ForeignKey('stores.StoreRetail', on_delete=models.CASCADE, verbose_name=_('retail'))
+    is_active = models.BooleanField(_('status'), default=True, help_text=_('Indicates whether this product is active. Uncheck this option if it is not active.'))
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:
