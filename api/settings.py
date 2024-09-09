@@ -170,6 +170,7 @@ UNFOLD = {
     ],
     'SHOW_HISTORY': True,
     'SHOW_VIEW_ON_SITE': False,
+    'ENVIRONMENT': 'api.utils.environment_callback',
     'LOGIN': {
         #'image': lambda request: static('sample/login-bg.jpg'),
         #'redirect_after': lambda request: reverse_lazy('admin:APP_MODEL_changelist'),
