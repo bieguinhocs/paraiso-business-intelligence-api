@@ -1,6 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+def format_text(name):
+    exceptions = {'de', 'del'}
+    words = name.lower().split()
+    return ' '.join([word.capitalize() if word not in exceptions else word for word in words])
+
 class ProductGroup(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
@@ -11,6 +16,13 @@ class ProductGroup(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        super().clean()
+        self.name = format_text(self.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
 class ProductFamily(models.Model):
     code = models.CharField(_('code'), max_length=100, unique=True)
@@ -24,6 +36,13 @@ class ProductFamily(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        super().clean()
+        self.name = format_text(self.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
 class ProductBrand(models.Model):
     code = models.CharField(_('code'), max_length=100, unique=True)
@@ -36,6 +55,13 @@ class ProductBrand(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        super().clean()
+        self.name = format_text(self.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
 class ProductLine(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -49,6 +75,13 @@ class ProductLine(models.Model):
     def __str__(self):
         return self.name
     
+    def clean(self):
+        super().clean()
+        self.name = format_text(self.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+    
 class ProductSize(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
@@ -60,6 +93,13 @@ class ProductSize(models.Model):
     def __str__(self):
         return self.name
     
+    def clean(self):
+        super().clean()
+        self.name = format_text(self.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+    
 class ProductColor(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
@@ -70,6 +110,13 @@ class ProductColor(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        super().clean()
+        self.name = format_text(self.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
 class Product(models.Model):
     sku = models.CharField(_('SKU'), max_length=100, unique=True)
@@ -90,4 +137,13 @@ class Product(models.Model):
     
     @property
     def full_name(self):
-        return f"{self.name} {self.size.name} {self.color}"
+        if self.line:
+            return f"{self.family} {self.line} {self.name} {self.size.name} {self.color}"
+        return f"{self.family} {self.name} {self.size.name} {self.color}"
+    
+    def clean(self):
+        super().clean()
+        self.name = format_text(self.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
