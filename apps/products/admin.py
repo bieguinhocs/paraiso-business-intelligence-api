@@ -235,11 +235,17 @@ class ProductBrandAdmin(ModelAdmin):
 
 class ProductInline(TabularInline):
     model = Product
-    #fields = ['name',]
+    fields = ['sku', 'display_product', 'retail', 'is_active']
+    readonly_fields = ['display_product',]
     show_change_link = True
     can_delete = True
     tab = True
     extra = 0
+    max_num = 0
+
+    @display(description=_('Name'))
+    def display_product(self, instance: Product):
+        return instance.full_name
 
 @admin.register(ProductLine)
 class ProductLineAdmin(ModelAdmin):
@@ -296,7 +302,7 @@ class ProductLineAdmin(ModelAdmin):
         'created_at',
     )
 
-    @display(description=_('Name'), header=True)
+    @display(description=_('Brand'), header=True)
     def display_brand_header(self, instance: ProductLine):
         """
         Muestra la marca en la primera línea, el codigo en la segunda,
