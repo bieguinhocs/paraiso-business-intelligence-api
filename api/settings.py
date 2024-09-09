@@ -208,6 +208,47 @@ UNFOLD = {
         'show_all_applications': True,
         'navigation': [
             {
+                'title': _('Products'),
+                'collapsible': False,
+                'items': [
+                    {
+                        'title': _('Groups'),
+                        'icon': 'category',
+                        'link': reverse_lazy('admin:products_productgroup_changelist'),
+                    },
+                    {
+                        'title': _('Families'),
+                        'icon': 'family_history',
+                        'link': reverse_lazy('admin:products_productfamily_changelist'),
+                    },
+                    {
+                        'title': _('Brands'),
+                        'icon': 'hub',
+                        'link': reverse_lazy('admin:products_productbrand_changelist'),
+                    },
+                    {
+                        'title': _('Lines'),
+                        'icon': 'account_tree',
+                        'link': reverse_lazy('admin:products_productline_changelist'),
+                    },
+                    {
+                        'title': _('Sizes'),
+                        'icon': 'straighten',
+                        'link': reverse_lazy('admin:products_productsize_changelist'),
+                    },
+                    {
+                        'title': _('Colors'),
+                        'icon': 'palette',
+                        'link': reverse_lazy('admin:products_productcolor_changelist'),
+                    },
+                    {
+                        'title': _('Products'),
+                        'icon': 'barcode_scanner',
+                        'link': reverse_lazy('admin:products_product_changelist'),
+                    },
+                ],
+            },
+            {
                 'title': _('Stores'),
                 'collapsible': False,
                 'items': [
@@ -261,7 +302,7 @@ UNFOLD = {
             },
             {
                 'title': _('Users & Groups'),
-                'collapsible': False,
+                'collapsible': True,
                 'items': [
                     {
                         'title': _('Users'),
