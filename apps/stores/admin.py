@@ -220,8 +220,7 @@ class StoreAdmin(ModelAdmin):
     )
     list_display = (
         'code',
-        'name',
-        'display_retail_header',
+        'display_store_header',
         'display_coordinator_header',
         'display_coverage_header',
         'display_created',
@@ -289,19 +288,15 @@ class StoreAdmin(ModelAdmin):
         'display_channel'
     )
 
-    @display(description=_('Channel'))
-    def display_channel(self, instance: Store):
-        return instance.retail.channel
-    
-    @display(description=_('Retail'), header=True)
-    def display_retail_header(self, instance: Store):
+    @display(description=_('Name'), header=True)
+    def display_store_header(self, instance: Store):
         """
-        Muestra el nombre en la primera línea, el canal en la segunda,
+        Muestra cadena+nombre en la primera línea, el canal en la segunda,
         y un avatar en un círculo.
         """
         image_path = f"images/retails/{instance.retail.name.lower()}.jpg"
         return [
-            instance.retail,
+            instance.full_name,
             instance.retail.channel,
             None,
             {
@@ -337,6 +332,10 @@ class StoreAdmin(ModelAdmin):
     )
     def display_coverage_header(self, instance: Store):
         return _('active') if instance.is_covered else _('inactive')
+
+    @display(description=_('Channel'))
+    def display_channel(self, instance: Store):
+        return instance.retail.channel
 
     @display(description=_('Created'))
     def display_created(self, instance: Store):
