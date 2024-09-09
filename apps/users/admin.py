@@ -67,12 +67,12 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         ),
     )
     list_display = (
-        'display_user',
+        'display_user_header',
         'display_document_type',
         'display_document_number',
-        'display_status',
-        'display_staff',
-        'display_superuser',
+        'display_status_header',
+        'display_staff_header',
+        'display_superuser_header',
         'display_created',
     )
     search_fields = (
@@ -157,7 +157,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         return instance.username
 
     @display(description=_('User'), header=True)
-    def display_user(self, instance: User):
+    def display_user_header(self, instance: User):
         """
         Muestra el nombre completo en la primera línea,los roles en la segunda,
         y un avatar en un círculo.
@@ -188,7 +188,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
             _('active'): 'success',
         },
     )
-    def display_status(self, instance: User):
+    def display_status_header(self, instance: User):
         return _('active') if instance.is_active else _('inactive')
     
     @display(
@@ -199,7 +199,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         },
         boolean=True
     )
-    def display_staff(self, instance: User):
+    def display_staff_header(self, instance: User):
         return _('yes') if instance.is_staff else _('no')
 
     @display(
@@ -210,7 +210,7 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
         },
         boolean=True
     )
-    def display_superuser(self, instance: User):
+    def display_superuser_header(self, instance: User):
         return _('yes') if instance.is_superuser else _('no')
 
     @display(description=_('Created'))
