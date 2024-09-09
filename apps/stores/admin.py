@@ -8,7 +8,7 @@ from .models import (
 from django.utils.translation import gettext_lazy as _
 from unfold.decorators import display
 from django.templatetags.static import static
-from unfold.admin import ModelAdmin, StackedInline, TabularInline
+from unfold.admin import TabularInline
 
 class RetailInline(TabularInline):
     model = StoreRetail
@@ -109,7 +109,7 @@ class StoreRetailAdmin(ModelAdmin):
     )
     list_display = (
         'code',
-        'display_retail',
+        'display_retail_header',
         'business_name',
         'display_created',
     )
@@ -157,7 +157,7 @@ class StoreRetailAdmin(ModelAdmin):
     )
 
     @display(description=_('Name'), header=True)
-    def display_retail(self, instance: StoreRetail):
+    def display_retail_header(self, instance: StoreRetail):
         """
         Muestra el nombre en la primera línea, el canal en la segunda,
         y un avatar en un círculo.
@@ -221,9 +221,9 @@ class StoreAdmin(ModelAdmin):
     list_display = (
         'code',
         'name',
-        'display_retail',
-        'display_coordinator',
-        'display_coverage',
+        'display_retail_header',
+        'display_coordinator_header',
+        'display_coverage_header',
         'display_created',
     )
     search_fields = (
@@ -294,7 +294,7 @@ class StoreAdmin(ModelAdmin):
         return instance.retail.channel
     
     @display(description=_('Retail'), header=True)
-    def display_retail(self, instance: Store):
+    def display_retail_header(self, instance: Store):
         """
         Muestra el nombre en la primera línea, el canal en la segunda,
         y un avatar en un círculo.
@@ -312,7 +312,7 @@ class StoreAdmin(ModelAdmin):
         ]
     
     @display(description=_('Coordinator'), header=True)
-    def display_coordinator(self, instance: Store):
+    def display_coordinator_header(self, instance: Store):
         """
         Muestra el nombre completo en la primera línea, el usuario en la segunda,
         y un avatar en un círculo.
@@ -335,7 +335,7 @@ class StoreAdmin(ModelAdmin):
             _('active'): 'success',
         },
     )
-    def display_coverage(self, instance: Store):
+    def display_coverage_header(self, instance: Store):
         return _('active') if instance.is_covered else _('inactive')
 
     @display(description=_('Created'))
