@@ -48,12 +48,34 @@ class ProductLine(models.Model):
 
     def __str__(self):
         return self.name
+    
+class ProductSize(models.Model):
+    name = models.CharField(_('name'), max_length=255, unique=True)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('size')
+        verbose_name_plural = _('sizes')
+
+    def __str__(self):
+        return self.name
+    
+class ProductColor(models.Model):
+    name = models.CharField(_('name'), max_length=255, unique=True)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('color')
+        verbose_name_plural = _('colors')
+
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
     sku = models.CharField(_('SKU'), max_length=100, unique=True)
     name = models.CharField(_('name'), max_length=255, unique=True)
-    size = models.CharField(_('size'), max_length=50, blank=True, null=True)
-    color = models.CharField(_('color'), max_length=50, blank=True, null=True)
+    size = models.ForeignKey(ProductSize, on_delete=models.CASCADE, verbose_name=_('size'))
+    color = models.ForeignKey(ProductColor, on_delete=models.CASCADE, verbose_name=_('color'))
     line = models.ForeignKey(ProductLine, on_delete=models.CASCADE, verbose_name=_('line'))
     family = models.ForeignKey(ProductFamily, on_delete=models.CASCADE, verbose_name=_('family'))
     retail = models.ForeignKey('stores.StoreRetail', on_delete=models.CASCADE, verbose_name=_('retail'))
@@ -65,3 +87,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def full_name(self):
+        return f"{self.name} {self.size.name} {self.color}"
