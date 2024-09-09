@@ -122,7 +122,7 @@ class Product(models.Model):
     sku = models.CharField(_('SKU'), max_length=100, unique=True)
     name = models.CharField(_('name'), max_length=255, unique=True)
     size = models.ForeignKey(ProductSize, on_delete=models.CASCADE, verbose_name=_('size'))
-    color = models.ForeignKey(ProductColor, on_delete=models.CASCADE, verbose_name=_('color'))
+    color = models.ForeignKey(ProductColor, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('color'))
     line = models.ForeignKey(ProductLine, on_delete=models.CASCADE, verbose_name=_('line'))
     family = models.ForeignKey(ProductFamily, on_delete=models.CASCADE, verbose_name=_('family'))
     retail = models.ForeignKey('stores.StoreRetail', on_delete=models.CASCADE, verbose_name=_('retail'))
@@ -138,9 +138,9 @@ class Product(models.Model):
     
     @property
     def full_name(self):
-        if self.line:
-            return f"{self.family} {self.line} {self.name} {self.size.name} {self.color}"
-        return f"{self.family} {self.name} {self.size.name} {self.color}"
+        line_val = f' {self.line}' if self.line else ''
+        color_val = f' {self.color}' if self.color else ''
+        return f"{self.family}{line_val} {self.name} {self.size}{color_val}"
     
     def clean(self):
         super().clean()
