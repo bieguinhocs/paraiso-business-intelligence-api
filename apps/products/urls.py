@@ -8,6 +8,7 @@ from .views import (
     ProductSizeViewSet,
     ProductColorViewSet,
     ProductViewSet,
+    load_lines
 )
 
 router = DefaultRouter()
@@ -19,7 +20,7 @@ router.register(r'sizes', ProductSizeViewSet)
 router.register(r'colors', ProductColorViewSet)
 router.register(r'products', ProductViewSet)
 
-from . import views
 urlpatterns = [
     path('', include(router.urls)),
+    path('ajax/load-lines/', load_lines, name='ajax_load_lines'),
 ]
