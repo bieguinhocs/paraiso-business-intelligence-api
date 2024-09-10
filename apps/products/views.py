@@ -17,6 +17,7 @@ from .serializers import (
     ProductColorSerializer,
     ProductSerializer,
 )
+from django.http import JsonResponse
 
 class ProductGroupViewSet(viewsets.ModelViewSet):
     queryset = ProductGroup.objects.all()
@@ -52,3 +53,8 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = ProductSerializer
+
+def load_lines(request):
+    brand_id = request.GET.get('brand')
+    lines = ProductLine.objects.filter(brand_id=brand_id).order_by('name')
+    return JsonResponse(list(lines.values('id', 'name')), safe=False)
