@@ -13,7 +13,6 @@ from django.utils.translation import gettext_lazy as _
 from unfold.decorators import display
 from django.templatetags.static import static
 from unfold.admin import TabularInline
-from.forms import ProductAdminForm
 
 class FamilyInline(TabularInline):
     model = ProductFamily
@@ -327,7 +326,7 @@ class ProductLineAdmin(ModelAdmin):
     
     def get_search_results(self, request, queryset, search_term):
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)
-        queryset = queryset.order_by('name',)
+        queryset = queryset.order_by('name', 'brand__name',)
         for line in queryset:
             line.name = f"{line.brand.name} - {line.name}"
         return queryset, use_distinct
@@ -446,7 +445,6 @@ class ProductColorAdmin(ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(ModelAdmin):
-    form = ProductAdminForm
     add_fieldsets = (
         (
             _('Overview'), 
@@ -461,8 +459,8 @@ class ProductAdmin(ModelAdmin):
                         'color',
                     ),
                     (
-                        'brand',
                         'line',
+                        'display_brand',
                     ),
                     (
                         'family',
@@ -508,8 +506,8 @@ class ProductAdmin(ModelAdmin):
                         'color',
                     ),
                     (
-                        'brand',
                         'line',
+                        'display_brand',
                     ),
                     (
                         'family',
@@ -535,6 +533,7 @@ class ProductAdmin(ModelAdmin):
     autocomplete_fields = (
         'size',
         'color',
+        'line',
         'family',
         'retail',
     )
