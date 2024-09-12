@@ -22,8 +22,8 @@ except admin.sites.NotRegistered:
 
 class StoreInline(TabularInline):
     model = Store
-    fields = ['code', 'name', 'retail', 'is_covered']
-    readonly_fields = ['code', 'name', 'retail',]
+    fields = ['name', 'retail', 'is_covered']
+    readonly_fields = ['name', 'retail',]
     show_change_link = True
     can_delete = True
     tab = True
