@@ -37,7 +37,7 @@ class ProductGroupAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'name',
+        'display_group_header',
         'display_created',
     )
     search_fields = (
@@ -70,6 +70,17 @@ class ProductGroupAdmin(ModelAdmin):
         'created_at',
     )
 
+    @display(description=_('Group'), header=True)
+    def display_group_header(self, instance: ProductGroup):
+        """
+        Muestra el nombre en la primera línea.
+        """
+        return [
+            instance.name,
+            None,
+            None,
+        ]
+
     @display(description=_('Created'))
     def display_created(self, instance: ProductGroup):
         return instance.created_at
@@ -95,8 +106,7 @@ class ProductFamilyAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'code',
-        'name',
+        'display_family_header',
         'group',
         'display_created',
     )
@@ -135,6 +145,17 @@ class ProductFamilyAdmin(ModelAdmin):
     readonly_fields = (
         'created_at',
     )
+
+    @display(description=_('Family'), header=True)
+    def display_family_header(self, instance: ProductFamily):
+        """
+        Muestra la familia en la primera línea, el codigo en la segunda.
+        """
+        return [
+            instance.name,
+            instance.code,
+            None,
+        ]
 
     @display(description=_('Created'))
     def display_created(self, instance: ProductFamily):
@@ -206,7 +227,7 @@ class ProductBrandAdmin(ModelAdmin):
         'created_at',
     )
 
-    @display(description=_('Name'), header=True)
+    @display(description=_('Brand'), header=True)
     def display_brand_header(self, instance: ProductBrand):
         """
         Muestra la marca en la primera línea, el codigo en la segunda,
@@ -263,7 +284,7 @@ class ProductLineAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'name',
+        'display_line_header',
         'display_brand_header',
         'display_created',
     )
@@ -301,6 +322,17 @@ class ProductLineAdmin(ModelAdmin):
     readonly_fields = (
         'created_at',
     )
+    
+    @display(description=_('Line'), header=True)
+    def display_line_header(self, instance: ProductLine):
+        """
+        Muestra el nombre en la primera línea.
+        """
+        return [
+            instance.name,
+            None,
+            None,
+        ]
 
     @display(description=_('Brand'), header=True)
     def display_brand_header(self, instance: ProductLine):
@@ -345,7 +377,7 @@ class ProductSizeAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'name',
+        'display_size_header',
         'display_created',
     )
     search_fields = (
@@ -377,6 +409,17 @@ class ProductSizeAdmin(ModelAdmin):
     readonly_fields = (
         'created_at',
     )
+
+    @display(description=_('Size'), header=True)
+    def display_size_header(self, instance: ProductSize):
+        """
+        Muestra el nombre en la primera línea.
+        """
+        return [
+            instance.name,
+            None,
+            None,
+        ]
 
     @display(description=_('Created'))
     def display_created(self, instance: ProductSize):
@@ -401,7 +444,7 @@ class ProductColorAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'name',
+        'display_color_header',
         'display_created',
     )
     search_fields = (
@@ -433,6 +476,17 @@ class ProductColorAdmin(ModelAdmin):
     readonly_fields = (
         'created_at',
     )
+
+    @display(description=_('Color'), header=True)
+    def display_color_header(self, instance: ProductColor):
+        """
+        Muestra el nombre en la primera línea.
+        """
+        return [
+            instance.name,
+            None,
+            None,
+        ]
 
     @display(description=_('Created'))
     def display_created(self, instance: ProductColor):
@@ -543,7 +597,7 @@ class ProductAdmin(ModelAdmin):
         'display_group',
     )
 
-    @display(description=_('Name'), header=True)
+    @display(description=_('Product'), header=True)
     def display_product_header(self, instance: Product):
         """
         Muestra el nombre completo en la primera línea, el sku en la segunda,
