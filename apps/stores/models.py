@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from utils.text_format import format_to_title_case
 import re
 
 def format_code(code):
@@ -11,11 +12,6 @@ def format_code(code):
         numbers = match.group(2)  # Keep numbers as is
         return f"{letters}{numbers}"
     return code.upper()  # In case the format is different, return it in uppercase
-
-def format_text(name):
-    exceptions = {'de', 'del'}
-    words = name.lower().split()
-    return ' '.join([word.capitalize() if word not in exceptions else word for word in words])
 
 class StoreChannel(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -31,7 +27,7 @@ class StoreChannel(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_text(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -53,7 +49,7 @@ class StoreRetail(models.Model):
     def clean(self):
         super().clean()
         self.code = format_code(self.code)
-        self.name = format_text(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -83,7 +79,7 @@ class Store(models.Model):
     def clean(self):
         super().clean()
         self.code = format_code(self.code)
-        self.name = format_text(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
