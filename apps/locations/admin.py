@@ -3,7 +3,7 @@ from unfold.admin import ModelAdmin
 from .models import AddressDepartment, AddressCity, AddressZonalGroup, AddressDistrict, Address
 from django.utils.translation import gettext_lazy as _
 from unfold.decorators import display
-from unfold.admin import ModelAdmin, StackedInline, TabularInline
+from unfold.admin import TabularInline
 
 class CityInline(TabularInline):
     model = AddressCity
@@ -28,7 +28,7 @@ class AddressDepartmentAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'name',
+        'display_department_header',
         'display_created',
     )
     search_fields = (
@@ -60,6 +60,17 @@ class AddressDepartmentAdmin(ModelAdmin):
     readonly_fields = (
         'created_at',
     )
+
+    @display(description=_('Department'), header=True)
+    def display_department_header(self, instance: AddressDepartment):
+        """
+        Muestra el nombre en la primera línea.
+        """
+        return [
+            instance.name,
+            None,
+            None,
+        ]
 
     @display(description=_('Created'))
     def display_created(self, instance: AddressDepartment):
@@ -100,7 +111,7 @@ class AddressCityAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'name',
+        'display_city_header',
         'department',
         'display_created',
     )
@@ -140,6 +151,17 @@ class AddressCityAdmin(ModelAdmin):
         'created_at',
     )
 
+    @display(description=_('City'), header=True)
+    def display_city_header(self, instance: AddressCity):
+        """
+        Muestra el nombre en la primera línea.
+        """
+        return [
+            instance.name,
+            None,
+            None,
+        ]
+
     @display(description=_('Created'))
     def display_created(self, instance: AddressCity):
         return instance.created_at
@@ -150,8 +172,6 @@ class AddressCityAdmin(ModelAdmin):
         for city in queryset:
             city.name = f"{city.department.name} - {city.name}"
         return queryset, use_distinct
-
-
 
 @admin.register(AddressZonalGroup)
 class AddressZonalGroupAdmin(ModelAdmin):
@@ -168,7 +188,7 @@ class AddressZonalGroupAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'name',
+        'display_zonal_group_header',
         'display_created',
     )
     search_fields = (
@@ -202,6 +222,17 @@ class AddressZonalGroupAdmin(ModelAdmin):
         'created_at',
     )
 
+    @display(description=_('Zonal group'), header=True)
+    def display_zonal_group_header(self, instance: AddressZonalGroup):
+        """
+        Muestra el nombre en la primera línea.
+        """
+        return [
+            instance.name,
+            None,
+            None,
+        ]
+
     @display(description=_('Created'))
     def display_created(self, instance: AddressZonalGroup):
         return instance.created_at
@@ -230,7 +261,7 @@ class AddressDistrictAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'name',
+        'display_district_header',
         'city',
         'display_department',
         'zonal_group',
@@ -282,6 +313,17 @@ class AddressDistrictAdmin(ModelAdmin):
         'display_department',
     )
 
+    @display(description=_('District'), header=True)
+    def display_district_header(self, instance: AddressDistrict):
+        """
+        Muestra el nombre en la primera línea.
+        """
+        return [
+            instance.name,
+            None,
+            None,
+        ]
+
     @display(description=_('Department'))
     def display_department(self, instance: AddressDistrict):
         return instance.city.department
@@ -331,7 +373,7 @@ class AddressAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'name',
+        'display_address_header',
         'district',
         'display_city',
         'display_department',
@@ -400,6 +442,17 @@ class AddressAdmin(ModelAdmin):
         'display_department',
         'display_zonal_group',
     )
+
+    @display(description=_('Address'), header=True)
+    def display_address_header(self, instance: Address):
+        """
+        Muestra el nombre en la primera línea.
+        """
+        return [
+            instance.name,
+            None,
+            None,
+        ]
 
     @display(description=_('Created'))
     def display_created(self, instance: Address):
