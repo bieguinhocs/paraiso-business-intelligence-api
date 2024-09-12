@@ -12,7 +12,7 @@ from unfold.admin import TabularInline
 
 class RetailInline(TabularInline):
     model = StoreRetail
-    fields = ['code', 'name', 'business_name']
+    fields = ['name', 'business_name']
     show_change_link = True
     can_delete = True
     tab = True
