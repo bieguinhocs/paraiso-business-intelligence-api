@@ -2,10 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from utils.text_format import format_to_title_case
-from .validators import (
-    validate_ruc,
-    validate_alpha_numeric_code,
-)
+from .validators import validate_ruc
 
 class StoreChannel(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -27,9 +24,9 @@ class StoreChannel(models.Model):
         super().save(*args, **kwargs)
 
 class StoreRetail(models.Model):
-    code = models.CharField(_('code'), max_length=11, unique=True, validators=[validate_ruc])
     name = models.CharField(_('name'), max_length=255, unique=True)
     business_name = models.CharField(_('business name'), max_length=255, blank=True, null=True)
+    ruc = models.CharField(_('RUC'), max_length=11, unique=False, validators=[validate_ruc])
     channel = models.ForeignKey(StoreChannel, on_delete=models.CASCADE, verbose_name=_('channel'))
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
@@ -42,14 +39,12 @@ class StoreRetail(models.Model):
     
     def clean(self):
         super().clean()
-        self.code = self.code.upper()
         self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
 class Store(models.Model):
-    code = models.CharField(_('code'), max_length=6, unique=True, validators=[validate_alpha_numeric_code])
     name = models.CharField(_('name'), max_length=255)
     sellout_name = models.CharField(_('sellout name'), max_length=255, blank=True, null=True)
     address = models.ForeignKey('locations.Address', on_delete=models.CASCADE, null=True, blank=True, verbose_name=_('address'))
@@ -72,7 +67,6 @@ class Store(models.Model):
     
     def clean(self):
         super().clean()
-        self.code = self.code.upper()
         self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
