@@ -79,7 +79,7 @@ class StoreChannelAdmin(ModelAdmin):
 
 class StoreInline(TabularInline):
     model = Store
-    fields = ['code', 'name', 'coordinator', 'is_covered']
+    fields = ['name', 'coordinator', 'is_covered']
     autocomplete_fields = ['coordinator']
     show_change_link = True
     can_delete = True
@@ -95,12 +95,12 @@ class StoreRetailAdmin(ModelAdmin):
             {
                 'fields': (
                     (
-                        'code',
-                        'channel',
-                    ),
-                    (
                         'name',
                         'business_name',
+                    ),
+                    (
+                        'ruc',
+                        'channel',
                     ),
                 ),
                 'classes': ('wide',),
@@ -108,15 +108,15 @@ class StoreRetailAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'code',
         'display_retail_header',
         'business_name',
+        'ruc',
         'display_created',
     )
     search_fields = (
-        'code',
         'name',
         'business_name',
+        'ruc',
         'channel__name',
     )
     list_filter = (
@@ -128,13 +128,13 @@ class StoreRetailAdmin(ModelAdmin):
             {
                 'fields': (
                     (
-                        'code',
-                        'channel',
-                    ),
-                    (
                         'name',
                         'business_name',
                     ),
+                    (
+                        'ruc',
+                        'channel',
+                    ),      
                 ),
                 'classes': ['tab',],
             },
@@ -180,7 +180,7 @@ class StoreRetailAdmin(ModelAdmin):
     
     def get_search_results(self, request, queryset, search_term):
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)
-        queryset = queryset.order_by('code', 'name')
+        queryset = queryset.order_by('name')
         return queryset, use_distinct
 
 @admin.register(Store)
@@ -190,7 +190,6 @@ class StoreAdmin(ModelAdmin):
             _('Overview'), 
             {
                 'fields': (
-                        'code',
                     (
                         'name',
                         'sellout_name',
@@ -200,7 +199,6 @@ class StoreAdmin(ModelAdmin):
                         'display_channel',
                     ),
                     'address',
-                    'is_covered',
                 ),
                 'classes': ('wide',),
             },
@@ -219,28 +217,26 @@ class StoreAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'code',
         'display_store_header',
         'display_coordinator_header',
         'display_coverage_header',
         'display_created',
     )
     search_fields = (
-        'code',
         'name',
         'retail__name',
         'coordinator__first_name',
         'coordinator__last_name',
     )
     list_filter = (
+        'retail',
         'created_at',
     )
     fieldsets = (
         (
             _('Overview'),
             {
-                'fields': (
-                        'code',        
+                'fields': (      
                     (
                         'name',
                         'sellout_name',
@@ -343,5 +339,5 @@ class StoreAdmin(ModelAdmin):
     
     def get_search_results(self, request, queryset, search_term):
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)
-        queryset = queryset.order_by('code', 'name')
+        queryset = queryset.order_by('retail__name', 'name')
         return queryset, use_distinct
