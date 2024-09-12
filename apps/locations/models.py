@@ -1,7 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import ValidationError
 from utils.text_format import format_to_title_case
+from .validators import (
+    validate_latitude,
+    validate_longitude,
+)
 
 class AddressDepartment(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -80,8 +83,8 @@ class AddressDistrict(models.Model):
 
 class Address(models.Model):
     name = models.CharField(_('name'), max_length=255)
-    latitude = models.DecimalField(_('latitude'), max_digits=8, decimal_places=6, default=0.0)
-    longitude = models.DecimalField(_('longitude'), max_digits=9, decimal_places=6, default=0.0)
+    latitude = models.DecimalField(_('latitude'), max_digits=8, decimal_places=6, default=0.0, validators=[validate_latitude])
+    longitude = models.DecimalField(_('longitude'), max_digits=9, decimal_places=6, default=0.0, validators=[validate_longitude])
     district = models.ForeignKey(AddressDistrict, on_delete=models.CASCADE, verbose_name=_('district'))
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
@@ -91,17 +94,10 @@ class Address(models.Model):
 
     def __str__(self):
         return self.name or self.location
-    
-    def validate_latitude_longitude(self):
-        if not (-90 <= self.latitude <= 90):
-            raise ValidationError('Latitude must be between -90 and 90 degrees.')
-        if not (-180 <= self.longitude <= 180):
-            raise ValidationError('Longitude must be between -180 and 180 degrees.')
 
     def clean(self):
         super().clean()
         self.name = format_to_title_case(self.name)
-        self.validate_latitude_longitude()
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
