@@ -6,14 +6,15 @@ from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
-from django.contrib.auth.models import Group
+
+def format_to_title_case(text):
+    exceptions = {'de', 'del'}
+    words = text.lower().split()
+    return ' '.join([word.capitalize() if word not in exceptions else word for word in words])
 
 @receiver(pre_save, sender=Group)
 def format_group_name(sender, instance, **kwargs):
-    if instance.name:
-        exceptions = {'de', 'del'}
-        words = instance.name.lower().split()
-        instance.name = ' '.join([word.capitalize() if word not in exceptions else word for word in words])
+    instance.name = format_to_title_case(instance.name)
 
 class CustomUser(AbstractUser):
     DOCUMENT_TYPE_CHOICES = [
@@ -60,17 +61,12 @@ class CustomUser(AbstractUser):
             raise ValidationError(_('Document number must be exactly 8 digits for DNI.'))
         elif self.document_type == 'CE' and len(self.document_number) != 9:
             raise ValidationError(_('Document number must be exactly 9 digits for foreigner card.'))
-
-    def format_name(self, name):
-        exceptions = {'de', 'del'}
-        words = name.lower().split()
-        return ' '.join([word.capitalize() if word not in exceptions else word for word in words])
     
     def clean(self):
         super().clean()
         self.validate_document_number()
         
     def save(self, *args, **kwargs):
-        self.first_name = self.format_name(self.first_name)
-        self.last_name = self.format_name(self.last_name)
+        self.first_name = format_to_title_case(self.first_name)
+        self.last_name = format_to_title_case(self.last_name)
         super().save(*args, **kwargs)
