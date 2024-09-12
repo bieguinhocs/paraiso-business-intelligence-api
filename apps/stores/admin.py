@@ -34,7 +34,7 @@ class StoreChannelAdmin(ModelAdmin):
         ),
     )
     list_display = (
-        'name',
+        'display_channel_header',
         'display_created',
     )
     search_fields = (
@@ -67,6 +67,17 @@ class StoreChannelAdmin(ModelAdmin):
     readonly_fields = (
         'created_at',
     )
+
+    @display(description=_('Channel'), header=True)
+    def display_channel_header(self, instance: StoreChannel):
+        """
+        Muestra el nombre en la primera línea.
+        """
+        return [
+            instance.name,
+            None,
+            None,
+        ]
 
     @display(description=_('Created'))
     def display_created(self, instance: StoreChannel):
@@ -156,7 +167,7 @@ class StoreRetailAdmin(ModelAdmin):
         'created_at',
     )
 
-    @display(description=_('Name'), header=True)
+    @display(description=_('Retail'), header=True)
     def display_retail_header(self, instance: StoreRetail):
         """
         Muestra el nombre en la primera línea, el canal en la segunda,
@@ -284,7 +295,7 @@ class StoreAdmin(ModelAdmin):
         'display_channel'
     )
 
-    @display(description=_('Name'), header=True)
+    @display(description=_('Store'), header=True)
     def display_store_header(self, instance: Store):
         """
         Muestra cadena+nombre en la primera línea, el canal en la segunda,
