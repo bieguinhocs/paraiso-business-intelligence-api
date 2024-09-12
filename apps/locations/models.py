@@ -1,11 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
-
-def format_name(name):
-    exceptions = {'de', 'del'}
-    words = name.lower().split()
-    return ' '.join([word.capitalize() if word not in exceptions else word for word in words])
+from utils.text_format import format_to_title_case
 
 class AddressDepartment(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -20,7 +16,7 @@ class AddressDepartment(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_name(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -39,7 +35,7 @@ class AddressCity(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_name(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -57,7 +53,7 @@ class AddressZonalGroup(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_name(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -77,7 +73,7 @@ class AddressDistrict(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_name(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -104,7 +100,7 @@ class Address(models.Model):
 
     def clean(self):
         super().clean()
-        self.name = format_name(self.name)
+        self.name = format_to_title_case(self.name)
         self.validate_latitude_longitude()
 
     def save(self, *args, **kwargs):
