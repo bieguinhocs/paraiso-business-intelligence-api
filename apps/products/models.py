@@ -1,5 +1,15 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
+import re
+
+def validate_numeric_digits(value):
+    if not re.fullmatch(r'\d+', value):
+        raise ValidationError(_('The code must contain only numeric digits.'))
+
+def validate_three_digit_code(value):
+    if not re.fullmatch(r'\d{3}', value):
+        raise ValidationError(_('The code must be exactly 3 digits, and only numbers are allowed.'))
 
 def format_text(name):
     exceptions = {'de', 'del'}
@@ -25,7 +35,7 @@ class ProductGroup(models.Model):
         super().save(*args, **kwargs)
 
 class ProductFamily(models.Model):
-    code = models.CharField(_('code'), max_length=100, unique=True)
+    code = models.CharField(_('code'), max_length=3, unique=True, validators=[validate_three_digit_code])
     name = models.CharField(_('name'), max_length=255, unique=True)
     group = models.ForeignKey(ProductGroup, on_delete=models.CASCADE, verbose_name=_('group'))
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
@@ -45,7 +55,7 @@ class ProductFamily(models.Model):
         super().save(*args, **kwargs)
 
 class ProductBrand(models.Model):
-    code = models.CharField(_('code'), max_length=100, unique=True)
+    code = models.CharField(_('code'), max_length=3, unique=True, validators=[validate_three_digit_code])
     name = models.CharField(_('name'), max_length=255, unique=True)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
@@ -122,7 +132,7 @@ class ProductColor(models.Model):
         super().save(*args, **kwargs)
 
 class Product(models.Model):
-    sku = models.CharField(_('SKU'), max_length=100, blank=True, null=True)
+    sku = models.CharField(_('SKU'), max_length=100, blank=True, null=True, validators=[validate_numeric_digits])
     name = models.CharField(_('name'), max_length=255)
     size = models.ForeignKey(ProductSize, on_delete=models.CASCADE, verbose_name=_('size'))
     color = models.ForeignKey(ProductColor, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('color'))
