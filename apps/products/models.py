@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
+from utils.text_format import format_to_title_case
 import re
 
 def validate_numeric_digits(value):
@@ -10,11 +11,6 @@ def validate_numeric_digits(value):
 def validate_three_digit_code(value):
     if not re.fullmatch(r'\d{3}', value):
         raise ValidationError(_('The code must be exactly 3 digits, and only numbers are allowed.'))
-
-def format_text(name):
-    exceptions = {'de', 'del'}
-    words = name.lower().split()
-    return ' '.join([word.capitalize() if word not in exceptions else word for word in words])
 
 class ProductGroup(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -29,7 +25,7 @@ class ProductGroup(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_text(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -49,7 +45,7 @@ class ProductFamily(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_text(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -68,7 +64,7 @@ class ProductBrand(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_text(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -90,7 +86,7 @@ class ProductLine(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_text(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -108,7 +104,7 @@ class ProductSize(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_text(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -126,7 +122,7 @@ class ProductColor(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_text(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -161,7 +157,7 @@ class Product(models.Model):
     
     def clean(self):
         super().clean()
-        self.name = format_text(self.name)
+        self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
