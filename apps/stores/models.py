@@ -2,16 +2,10 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from utils.text_format import format_to_title_case
-import re
-
-def format_code(code):
-    # Split the code into letters and numbers
-    match = re.match(r"([a-zA-Z]+)(\d+)", code)
-    if match:
-        letters = match.group(1).upper()  # Convert letters to uppercase
-        numbers = match.group(2)  # Keep numbers as is
-        return f"{letters}{numbers}"
-    return code.upper()  # In case the format is different, return it in uppercase
+from .validators import (
+    validate_ruc,
+    validate_alpha_numeric_code,
+)
 
 class StoreChannel(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -33,7 +27,7 @@ class StoreChannel(models.Model):
         super().save(*args, **kwargs)
 
 class StoreRetail(models.Model):
-    code = models.CharField(_('code'), max_length=100, unique=True)
+    code = models.CharField(_('code'), max_length=11, unique=True, validators=[validate_ruc])
     name = models.CharField(_('name'), max_length=255, unique=True)
     business_name = models.CharField(_('business name'), max_length=255, blank=True, null=True)
     channel = models.ForeignKey(StoreChannel, on_delete=models.CASCADE, verbose_name=_('channel'))
@@ -48,14 +42,14 @@ class StoreRetail(models.Model):
     
     def clean(self):
         super().clean()
-        self.code = format_code(self.code)
+        self.code = self.code.upper()
         self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
 class Store(models.Model):
-    code = models.CharField(_('code'), max_length=100, unique=True)
+    code = models.CharField(_('code'), max_length=6, unique=True, validators=[validate_alpha_numeric_code])
     name = models.CharField(_('name'), max_length=255)
     sellout_name = models.CharField(_('sellout name'), max_length=255, blank=True, null=True)
     address = models.ForeignKey('locations.Address', on_delete=models.CASCADE, null=True, blank=True, verbose_name=_('address'))
@@ -78,7 +72,7 @@ class Store(models.Model):
     
     def clean(self):
         super().clean()
-        self.code = format_code(self.code)
+        self.code = self.code.upper()
         self.name = format_to_title_case(self.name)
 
     def save(self, *args, **kwargs):
