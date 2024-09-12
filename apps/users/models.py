@@ -4,13 +4,9 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
+from utils.text_format import format_to_title_case
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
-
-def format_to_title_case(text):
-    exceptions = {'de', 'del'}
-    words = text.lower().split()
-    return ' '.join([word.capitalize() if word not in exceptions else word for word in words])
 
 @receiver(pre_save, sender=Group)
 def format_group_name(sender, instance, **kwargs):
