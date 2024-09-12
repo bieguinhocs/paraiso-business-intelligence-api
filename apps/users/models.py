@@ -52,7 +52,7 @@ class CustomUser(AbstractUser):
     
     def validate_document_number(self):
         if not self.document_number.isdigit():
-            raise ValidationError(_('The document number must contain only numerical digits.'))
+            raise ValidationError(_('The document number must contain only digits.'))
         if self.document_type == 'DNI' and len(self.document_number) != 8:
             raise ValidationError(_('Document number must be exactly 8 digits for DNI.'))
         elif self.document_type == 'CE' and len(self.document_number) != 9:
