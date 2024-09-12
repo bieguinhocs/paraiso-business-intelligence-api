@@ -121,7 +121,7 @@ class StoreRetailAdmin(ModelAdmin):
     list_display = (
         'display_retail_header',
         'business_name',
-        'ruc',
+        'channel',
         'display_created',
     )
     search_fields = (
@@ -170,13 +170,13 @@ class StoreRetailAdmin(ModelAdmin):
     @display(description=_('Retail'), header=True)
     def display_retail_header(self, instance: StoreRetail):
         """
-        Muestra el nombre en la primera línea, el canal en la segunda,
+        Muestra el nombre en la primera línea, el RUC en la segunda,
         y un avatar en un círculo.
         """
         image_path = f"images/retails/{instance.name.lower()}.jpg"
         return [
             instance.name,
-            instance.channel,
+            instance.ruc,
             None,
             {
                 "path": static(image_path),
