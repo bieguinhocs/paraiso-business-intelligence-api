@@ -51,7 +51,7 @@ class Store(models.Model):
     coordinator = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name='coordinator_stores', verbose_name=_('coordinator'))
     retail = models.ForeignKey(StoreRetail, on_delete=models.CASCADE, verbose_name=_('retail'))
     is_covered = models.BooleanField(_('coverage'), default=True, help_text=_('Indicates whether this store is covered. Uncheck this option if it is not covered.'))
-    promoters = models.ManyToManyField(get_user_model(), blank=True, null=True, related_name='promoter_stores', verbose_name=_('promoters'))
+    promoters = models.ManyToManyField(get_user_model(), blank=True, related_name='promoter_stores', verbose_name=_('promoters'))
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
     class Meta:
