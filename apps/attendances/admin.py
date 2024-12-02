@@ -4,6 +4,7 @@ from unfold.decorators import display
 from django.utils.translation import gettext_lazy as _
 from django.templatetags.static import static
 from unfold.admin import TabularInline
+from .forms import AttendanceForm
 from .models import (
     Attendance,
     AttendanceRecordType,
@@ -54,6 +55,9 @@ class AttendanceAccessTypeAdmin(ModelAdmin):
 
 @admin.register(Attendance)
 class AttendanceAdmin(ModelAdmin):
+    form = AttendanceForm
+    class Media:
+        js = ('js/photo_preview.js',)
     add_fieldsets = (
         (
             _('Overview'),
