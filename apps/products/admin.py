@@ -257,6 +257,7 @@ class ProductBrandAdmin(ModelAdmin):
 class ProductInline(TabularInline):
     model = Product
     fields = ['sku', 'display_product', 'retail', 'is_active']
+    autocomplete_fields = ['retail',]
     readonly_fields = ['display_product',]
     show_change_link = True
     can_delete = True
