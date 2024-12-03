@@ -33,6 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='fallback_default_key')
 DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = [
+    'belowapp-paraiso.onrender.com',
     'localhost',
     '127.0.0.1',
     '192.168.18.52',
