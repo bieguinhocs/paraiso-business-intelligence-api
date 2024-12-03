@@ -235,6 +235,7 @@ class StoreAdmin(ModelAdmin):
     )
     search_fields = (
         'name',
+        'address__district__city__name',
         'retail__name',
         'coordinator__first_name',
         'coordinator__last_name',
@@ -350,5 +351,7 @@ class StoreAdmin(ModelAdmin):
     
     def get_search_results(self, request, queryset, search_term):
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)
-        queryset = queryset.order_by('retail__name', 'name')
+        queryset = queryset.order_by('retail__name', 'address__district__city__name', 'name')
+        for store in queryset:
+            store.name = store.full_name
         return queryset, use_distinct
