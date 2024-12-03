@@ -26,12 +26,16 @@ sys.path.insert(0, str(BASE_DIR / 'apps'))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!6sytzdeypvg@03o%$+m*$(q^gc#i^-ka8e&glxbx5#uipd!-i'
+SECRET_KEY = 'xd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '192.168.18.52',
+]
 
 
 # Application definition
@@ -58,6 +62,9 @@ INSTALLED_APPS = [
     'apps.locations', 
     'apps.stores',
     'apps.products',
+    'apps.sales',
+    'apps.attendances',
+    'apps.personal_data',
 ]
 
 MIDDLEWARE = [
@@ -144,6 +151,12 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
+#STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MEDIA_ROOT = BASE_DIR / "media"
+
+MEDIA_URL = "media/"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -153,7 +166,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 UNFOLD = {
     'SITE_TITLE': 'Below Admin',
-    'SITE_HEADER': 'Below Admin',
+    'SITE_HEADER': 'Paraiso Admin',
     'SITE_URL': '/',
     'SITE_ICON': {
         'light': lambda request: static('images/below-light.png'),
@@ -209,8 +222,71 @@ UNFOLD = {
         'show_all_applications': True,
         'navigation': [
             {
+                'title': _('Personal data'),
+                'collapsible': True,
+                'items': [
+                    {
+                        'title': _('Personal data form'),
+                        'icon': 'perm_contact_calendar',
+                        'link': reverse_lazy('admin:personal_data_personaldata_changelist'),
+                    },
+                ],
+            },
+            {
+                'title': _('Attendances'),
+                'collapsible': True,
+                'items': [
+                    {
+                        'title': _('Attendance record types'),
+                        'icon': 'door_open',
+                        'link': reverse_lazy('admin:attendances_attendancerecordtype_changelist'),
+                    },
+                    {
+                        'title': _('Attendance access type'),
+                        'icon': 'switch_access_2',
+                        'link': reverse_lazy('admin:attendances_attendanceaccesstype_changelist'),
+                    },
+                    {
+                        'title': _('Attendances'),
+                        'icon': 'familiar_face_and_zone',
+                        'link': reverse_lazy('admin:attendances_attendance_changelist'),
+                    },
+                ],
+            },
+            {
+                'title': _('Sales'),
+                'collapsible': True,
+                'items': [
+                    {
+                        'title': _('Types'),
+                        'icon': 'sell',
+                        'link': reverse_lazy('admin:sales_saletype_changelist'),
+                    },
+                    {
+                        'title': _('Sources'),
+                        'icon': 'cloud_download',
+                        'link': reverse_lazy('admin:sales_salesource_changelist'),
+                    },
+                    {
+                        'title': _('Statuses'),
+                        'icon': 'published_with_changes',
+                        'link': reverse_lazy('admin:sales_salestatus_changelist'),
+                    },
+                    {
+                        'title': _('Price types'),
+                        'icon': 'credit_card',
+                        'link': reverse_lazy('admin:sales_salepricetype_changelist'),
+                    },
+                    {
+                        'title': _('Sales'),
+                        'icon': 'shopping_cart',
+                        'link': reverse_lazy('admin:sales_sale_changelist'),
+                    },
+                ],
+            },
+            {
                 'title': _('Products'),
-                'collapsible': False,
+                'collapsible': True,
                 'items': [
                     {
                         'title': _('Groups'),
@@ -251,7 +327,7 @@ UNFOLD = {
             },
             {
                 'title': _('Stores'),
-                'collapsible': False,
+                'collapsible': True,
                 'items': [
                     {
                         'title': _('Channels'),
@@ -272,7 +348,7 @@ UNFOLD = {
             },
             {
                 'title': _('Locations'),
-                'collapsible': False,
+                'collapsible': True,
                 'items': [
                     {
                         'title': _('Departments'),
