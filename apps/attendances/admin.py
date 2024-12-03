@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.templatetags.static import static
 from unfold.admin import TabularInline
 from .forms import AttendanceForm
+from django.utils.html import format_html
 from .models import (
     Attendance,
     AttendanceRecordType,
@@ -52,21 +53,17 @@ class AttendanceAccessTypeAdmin(ModelAdmin):
     def display_created(self, instance: AttendanceAccessType):
         return instance.created_at
 
-
 @admin.register(Attendance)
 class AttendanceAdmin(ModelAdmin):
     form = AttendanceForm
-    class Media:
-        js = ('js/photo_preview.js',)
     add_fieldsets = (
         (
             _('Overview'),
             {
                 'fields': (
-                    ('user', 'store'),
+                    ('store'),
                     ('record_type', 'access_type'),
                     'photo',
-                    'automatic',
                 ),
                 'classes': ('wide',),
             },
@@ -97,7 +94,7 @@ class AttendanceAdmin(ModelAdmin):
                 'fields': (
                     ('user', 'store'),
                     ('record_type', 'access_type'),
-                    'photo',
+                    'photo_preview',
                     'automatic',
                 ),
                 'classes': ['tab'],
@@ -111,8 +108,18 @@ class AttendanceAdmin(ModelAdmin):
             },
         ),
     )
-    autocomplete_fields = ('user', 'store', 'record_type', 'access_type')
-    readonly_fields = ('created_at',)
+    autocomplete_fields = (
+        'user',
+        'store',
+        'record_type',
+        'access_type',
+    )
+    readonly_fields = (
+        'user',
+        'photo_preview',
+        'automatic',
+        'created_at',
+    )
 
     @display(description=_('Attendance'), header=True)
     def display_user_header(self, instance: Attendance):
@@ -120,12 +127,13 @@ class AttendanceAdmin(ModelAdmin):
         Muestra el nombre completo del usuario y una concatenación
         de attendance_record_type y attendance_access_type.
         """
+        photo_url = instance.photo.url if instance.photo else static("images/avatar.jpg")
         return [
             f"{instance.user.first_name} {instance.user.last_name}",
             f"{instance.access_type.name} {instance.record_type.name}",
             None,
             {
-                "path": static("images/avatar.jpg"),
+                "path": photo_url,
                 "squared": False,
                 "borderless": True,
             },
@@ -152,3 +160,27 @@ class AttendanceAdmin(ModelAdmin):
     @display(description=_('Created'))
     def display_created(self, instance: Attendance):
         return instance.created_at
+    
+    def save_model(self, request, obj, form, change):
+        """
+        Sobrescribe el método save_model para asignar automáticamente el usuario de la sesión.
+        """
+        if not obj.pk:
+            obj.user = request.user
+        super().save_model(request, obj, form, change)
+
+    def photo_preview(self, obj):
+        if obj.photo:
+            # Renderiza una vista previa de la imagen con un enlace para descargarla
+            return format_html(
+                '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">'
+                '    <a href="{}" target="_blank">'
+                '        <img src="{}" alt="{}" style="max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 5px;" />'
+                '    </a>'
+                '</div>',
+                obj.photo.url,
+                obj.photo.url,
+                'Photo Preview'
+            )
+        return _('No photo available')
+    photo_preview.short_description = 'Photo'
