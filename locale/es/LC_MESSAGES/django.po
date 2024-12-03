@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-09 20:57-0500\n"
+"POT-Creation-Date: 2024-12-03 12:39-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,75 +18,118 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: api/settings.py:212 api/settings.py:246
+#: api/settings.py:225
+#| msgid "Personal info"
+msgid "Personal data"
+msgstr "Datos personales"
+
+#: api/settings.py:229
+#| msgid "Personal info"
+msgid "Personal data form"
+msgstr "Formulario datos personales"
+
+#: api/settings.py:236 api/settings.py:250
+msgid "Attendances"
+msgstr "Asistencias"
+
+#: api/settings.py:240
+msgid "Attendance record types"
+msgstr "Tipos de marcación"
+
+#: api/settings.py:245
+msgid "Attendance access type"
+msgstr "Tipos de acceso"
+
+#: api/settings.py:257 api/settings.py:281
+msgid "Sales"
+msgstr "Ventas"
+
+#: api/settings.py:261
+msgid "Types"
+msgstr "Tipos"
+
+#: api/settings.py:266
+msgid "Sources"
+msgstr "Orígenes"
+
+#: api/settings.py:271
+#| msgid "Status"
+msgid "Statuses"
+msgstr "Estados"
+
+#: api/settings.py:276
+msgid "Price types"
+msgstr "Tipos de precio"
+
+#: api/settings.py:288 api/settings.py:322
 msgid "Products"
 msgstr "Productos"
 
-#: api/settings.py:216 api/settings.py:314
+#: api/settings.py:292 api/settings.py:390
 msgid "Groups"
 msgstr "Grupos"
 
-#: api/settings.py:221
+#: api/settings.py:297
 msgid "Families"
 msgstr "Familias"
 
-#: api/settings.py:226
+#: api/settings.py:302
 msgid "Brands"
 msgstr "Marcas"
 
-#: api/settings.py:231
+#: api/settings.py:307
 msgid "Lines"
 msgstr "Líneas"
 
-#: api/settings.py:236
+#: api/settings.py:312
 msgid "Sizes"
 msgstr "Tamaños"
 
-#: api/settings.py:241
+#: api/settings.py:317
 msgid "Colors"
 msgstr "Colores"
 
-#: api/settings.py:253 api/settings.py:267
+#: api/settings.py:329 api/settings.py:343
 msgid "Stores"
 msgstr "Tiendas"
 
-#: api/settings.py:257
+#: api/settings.py:333
 msgid "Channels"
 msgstr "Canales"
 
-#: api/settings.py:262
+#: api/settings.py:338
 msgid "Retails"
 msgstr "Cadenas"
 
-#: api/settings.py:274 apps/locations/apps.py:7
+#: api/settings.py:350 apps/locations/apps.py:7
 msgid "Locations"
 msgstr "Ubicaciones"
 
-#: api/settings.py:278
+#: api/settings.py:354
 msgid "Departments"
 msgstr "Departamentos"
 
-#: api/settings.py:283
+#: api/settings.py:359
 msgid "Cities"
 msgstr "Ciudades"
 
-#: api/settings.py:288
+#: api/settings.py:364
 msgid "Districts"
 msgstr "Distritos"
 
-#: api/settings.py:293
+#: api/settings.py:369
 msgid "Zonal groups"
 msgstr "Grupos zonales"
 
-#: api/settings.py:298
+#: api/settings.py:374
 msgid "Addresses"
 msgstr "Direcciones"
 
-#: api/settings.py:305
+#: api/settings.py:381
 msgid "Users & Groups"
 msgstr "Usuarios & Grupos"
 
-#: api/settings.py:309
+#: api/settings.py:385
 msgid "Users"
 msgstr "Usuarios"
 
@@ -98,307 +141,611 @@ msgstr "Desarrollo"
 msgid "Production"
 msgstr "Producción"
 
+#: apps/attendances/admin.py:19 apps/attendances/admin.py:40
+#: apps/attendances/admin.py:61 apps/attendances/admin.py:92
 #: apps/locations/admin.py:21 apps/locations/admin.py:42
-#: apps/locations/admin.py:92 apps/locations/admin.py:117
-#: apps/locations/admin.py:159 apps/locations/admin.py:181
-#: apps/locations/admin.py:216 apps/locations/admin.py:251
-#: apps/locations/admin.py:302 apps/locations/admin.py:354
-#: apps/products/admin.py:31 apps/products/admin.py:52
-#: apps/products/admin.py:87 apps/products/admin.py:113
-#: apps/products/admin.py:164 apps/products/admin.py:187
-#: apps/products/admin.py:256 apps/products/admin.py:280
-#: apps/products/admin.py:339 apps/products/admin.py:360
-#: apps/products/admin.py:395 apps/products/admin.py:416
-#: apps/products/admin.py:452 apps/products/admin.py:499
-#: apps/stores/admin.py:26 apps/stores/admin.py:48 apps/stores/admin.py:94
-#: apps/stores/admin.py:127 apps/stores/admin.py:190 apps/stores/admin.py:240
-#: apps/users/admin.py:244
+#: apps/locations/admin.py:103 apps/locations/admin.py:128
+#: apps/locations/admin.py:181 apps/locations/admin.py:203
+#: apps/locations/admin.py:249 apps/locations/admin.py:284
+#: apps/locations/admin.py:346 apps/locations/admin.py:398
+#: apps/personal_data/admin.py:13 apps/products/admin.py:30
+#: apps/products/admin.py:51 apps/products/admin.py:97
+#: apps/products/admin.py:122 apps/products/admin.py:184
+#: apps/products/admin.py:207 apps/products/admin.py:277
+#: apps/products/admin.py:301 apps/products/admin.py:371
+#: apps/products/admin.py:392 apps/products/admin.py:438
+#: apps/products/admin.py:459 apps/products/admin.py:505
+#: apps/products/admin.py:552 apps/sales/admin.py:19 apps/sales/admin.py:40
+#: apps/sales/admin.py:75 apps/sales/admin.py:97 apps/sales/admin.py:133
+#: apps/sales/admin.py:155 apps/sales/admin.py:191 apps/sales/admin.py:213
+#: apps/sales/admin.py:259 apps/sales/admin.py:283 apps/stores/admin.py:26
+#: apps/stores/admin.py:48 apps/stores/admin.py:105 apps/stores/admin.py:138
+#: apps/stores/admin.py:201 apps/stores/admin.py:251 apps/users/admin.py:244
 msgid "Overview"
 msgstr "Descripción general"
 
-#: apps/locations/admin.py:51 apps/locations/admin.py:127
-#: apps/locations/admin.py:190 apps/locations/admin.py:265
-#: apps/locations/admin.py:383 apps/products/admin.py:61
-#: apps/products/admin.py:124 apps/products/admin.py:197
-#: apps/products/admin.py:290 apps/products/admin.py:369
-#: apps/products/admin.py:425 apps/products/admin.py:526
-#: apps/stores/admin.py:58 apps/stores/admin.py:143 apps/stores/admin.py:271
-#: apps/users/admin.py:132
-msgid "Important dates"
-msgstr ""
-
-#: apps/locations/admin.py:64 apps/locations/admin.py:143
-#: apps/locations/admin.py:203 apps/locations/admin.py:287
-#: apps/locations/admin.py:402 apps/products/admin.py:74
-#: apps/products/admin.py:140 apps/products/admin.py:228
-#: apps/products/admin.py:324 apps/products/admin.py:382
-#: apps/products/admin.py:438 apps/products/admin.py:620
-#: apps/stores/admin.py:71 apps/stores/admin.py:177 apps/stores/admin.py:340
-#: apps/users/admin.py:216
+#: apps/attendances/admin.py:31 apps/attendances/admin.py:52
+#: apps/attendances/admin.py:160 apps/locations/admin.py:75
+#: apps/locations/admin.py:165 apps/locations/admin.py:236
+#: apps/locations/admin.py:331 apps/locations/admin.py:457
+#: apps/personal_data/admin.py:120 apps/products/admin.py:84
+#: apps/products/admin.py:160 apps/products/admin.py:248
+#: apps/products/admin.py:356 apps/products/admin.py:425
+#: apps/products/admin.py:492 apps/products/admin.py:674 apps/sales/admin.py:62
+#: apps/sales/admin.py:120 apps/sales/admin.py:178 apps/sales/admin.py:236
+#: apps/sales/admin.py:314 apps/stores/admin.py:82 apps/stores/admin.py:188
+#: apps/stores/admin.py:351 apps/users/admin.py:216
 msgid "Created"
 msgstr "fecha de creación"
 
-#: apps/locations/admin.py:83 apps/locations/admin.py:283
-#: apps/locations/admin.py:410
-msgid "Department"
-msgstr "departamento"
+#: apps/attendances/admin.py:104 apps/locations/admin.py:51
+#: apps/locations/admin.py:138 apps/locations/admin.py:212
+#: apps/locations/admin.py:298 apps/locations/admin.py:427
+#: apps/products/admin.py:60 apps/products/admin.py:133
+#: apps/products/admin.py:217 apps/products/admin.py:311
+#: apps/products/admin.py:401 apps/products/admin.py:468
+#: apps/products/admin.py:579 apps/sales/admin.py:49 apps/sales/admin.py:107
+#: apps/sales/admin.py:165 apps/sales/admin.py:223 apps/sales/admin.py:294
+#: apps/stores/admin.py:58 apps/stores/admin.py:154 apps/stores/admin.py:282
+#: apps/users/admin.py:132
+msgid "Important dates"
+msgstr "Fechas importantes"
 
-#: apps/locations/admin.py:319 apps/locations/admin.py:371
-msgid "Location"
-msgstr "Ubicación"
+#: apps/attendances/admin.py:124
+msgid "Attendance"
+msgstr "asistencia"
 
-#: apps/locations/admin.py:406
-msgid "City"
-msgstr "ciudad"
+#: apps/attendances/admin.py:142 apps/sales/admin.py:310
+#: apps/stores/admin.py:302
+msgid "Store"
+msgstr "Tienda"
 
-#: apps/locations/admin.py:414
-msgid "Zonal group"
-msgstr "grupo zonal"
+#: apps/attendances/admin.py:150
+msgid "Autimatic"
+msgstr "Automático"
 
-#: apps/locations/models.py:11 apps/locations/models.py:29
-#: apps/locations/models.py:48 apps/locations/models.py:66
-#: apps/locations/models.py:86 apps/products/models.py:10
-#: apps/products/models.py:29 apps/products/models.py:49
-#: apps/products/models.py:67 apps/products/models.py:89
-#: apps/products/models.py:107 apps/products/models.py:126
-#: apps/stores/models.py:21 apps/stores/models.py:41 apps/stores/models.py:63
+#: apps/attendances/admin.py:152 apps/attendances/admin.py:158
+#: apps/users/admin.py:197 apps/users/admin.py:203 apps/users/admin.py:208
+#: apps/users/admin.py:214
+msgid "no"
+msgstr "no"
+
+#: apps/attendances/admin.py:153 apps/attendances/admin.py:158
+#: apps/users/admin.py:198 apps/users/admin.py:203 apps/users/admin.py:209
+#: apps/users/admin.py:214
+msgid "yes"
+msgstr "si"
+
+#: apps/attendances/admin.py:185 apps/personal_data/admin.py:137
+msgid "No photo available"
+msgstr "Foto no disponible"
+
+#: apps/attendances/models.py:6 apps/attendances/models.py:18
+#: apps/locations/models.py:10 apps/locations/models.py:28
+#: apps/locations/models.py:47 apps/locations/models.py:65
+#: apps/locations/models.py:85 apps/products/models.py:16
+#: apps/products/models.py:35 apps/products/models.py:55
+#: apps/products/models.py:73 apps/products/models.py:95
+#: apps/products/models.py:113 apps/products/models.py:132
+#: apps/sales/models.py:8 apps/sales/models.py:26 apps/sales/models.py:45
+#: apps/sales/models.py:64 apps/stores/models.py:8 apps/stores/models.py:27
+#: apps/stores/models.py:49
 msgid "name"
 msgstr "nombre"
 
-#: apps/locations/models.py:12 apps/locations/models.py:31
-#: apps/locations/models.py:49 apps/locations/models.py:69
-#: apps/locations/models.py:90 apps/products/models.py:11
-#: apps/products/models.py:31 apps/products/models.py:50
-#: apps/products/models.py:69 apps/products/models.py:90
-#: apps/products/models.py:108 apps/products/models.py:134
-#: apps/stores/models.py:23 apps/stores/models.py:44 apps/stores/models.py:70
-#: apps/users/models.py:33
+#: apps/attendances/models.py:7 apps/attendances/models.py:19
+#: apps/products/models.py:139 apps/sales/models.py:27 apps/sales/models.py:46
+#: apps/sales/models.py:65 apps/stores/models.py:9
+msgid "description"
+msgstr "descripción"
+
+#: apps/attendances/models.py:8 apps/attendances/models.py:20
+#: apps/attendances/models.py:63 apps/locations/models.py:11
+#: apps/locations/models.py:30 apps/locations/models.py:48
+#: apps/locations/models.py:68 apps/locations/models.py:89
+#: apps/personal_data/models.py:31 apps/products/models.py:17
+#: apps/products/models.py:37 apps/products/models.py:56
+#: apps/products/models.py:75 apps/products/models.py:96
+#: apps/products/models.py:114 apps/products/models.py:140
+#: apps/sales/models.py:9 apps/sales/models.py:28 apps/sales/models.py:47
+#: apps/sales/models.py:66 apps/sales/models.py:90 apps/stores/models.py:10
+#: apps/stores/models.py:31 apps/stores/models.py:56 apps/users/models.py:27
 msgid "created at"
 msgstr "fecha de creación"
 
-#: apps/locations/models.py:15 apps/locations/models.py:30
+#: apps/attendances/models.py:11 apps/attendances/models.py:44
+#| msgid "Record picture"
+msgid "record type"
+msgstr "tipo de marcación"
+
+#: apps/attendances/models.py:12
+#| msgid "Record picture"
+msgid "record types"
+msgstr "tipos de marcación"
+
+#: apps/attendances/models.py:23 apps/attendances/models.py:49
+msgid "access type"
+msgstr "tipo de acceso"
+
+#: apps/attendances/models.py:24
+msgid "access types"
+msgstr "tipos de acceso"
+
+#: apps/attendances/models.py:33 apps/users/models.py:33
+msgid "user"
+msgstr "usuario"
+
+#: apps/attendances/models.py:39 apps/sales/models.py:84
+#: apps/stores/models.py:59
+msgid "store"
+msgstr "tienda"
+
+#: apps/attendances/models.py:52 apps/personal_data/models.py:19
+msgid "photo"
+msgstr "foto"
+
+#: apps/attendances/models.py:56
+msgid "Photo of the user marking attendance"
+msgstr "Foto del usuario durante la marcación"
+
+#: apps/attendances/models.py:59
+msgid "automatic"
+msgstr "automático"
+
+#: apps/attendances/models.py:61
+msgid "Indicates if the record was automatic"
+msgstr "Indica si el registro fue automático"
+
+#: apps/attendances/models.py:66
+msgid "attendance record"
+msgstr "asistencia"
+
+#: apps/attendances/models.py:67
+msgid "attendance records"
+msgstr "asistencias"
+
+#: apps/locations/admin.py:64 apps/locations/admin.py:94
+#: apps/locations/admin.py:327 apps/locations/admin.py:465
+msgid "Department"
+msgstr "departamento"
+
+#: apps/locations/admin.py:154 apps/locations/admin.py:461
+msgid "City"
+msgstr "ciudad"
+
+#: apps/locations/admin.py:225 apps/locations/admin.py:469
+msgid "Zonal group"
+msgstr "grupo zonal"
+
+#: apps/locations/admin.py:316
+msgid "District"
+msgstr "Distrito"
+
+#: apps/locations/admin.py:363 apps/locations/admin.py:415
+msgid "Location"
+msgstr "Ubicación"
+
+#: apps/locations/admin.py:446
+msgid "Address"
+msgstr "Dirección"
+
+#: apps/locations/models.py:14 apps/locations/models.py:29
 msgid "department"
 msgstr "departamento"
 
-#: apps/locations/models.py:16
+#: apps/locations/models.py:15
 msgid "departments"
 msgstr "departamentos"
 
-#: apps/locations/models.py:34 apps/locations/models.py:67
+#: apps/locations/models.py:33 apps/locations/models.py:66
 msgid "city"
 msgstr "ciudad"
 
-#: apps/locations/models.py:35
+#: apps/locations/models.py:34
 msgid "cities"
 msgstr "ciudades"
 
-#: apps/locations/models.py:52 apps/locations/models.py:68
+#: apps/locations/models.py:51 apps/locations/models.py:67
 msgid "zonal group"
 msgstr "grupo zonal"
 
-#: apps/locations/models.py:53
+#: apps/locations/models.py:52
 msgid "zonal groups"
 msgstr "grupos zonales"
 
-#: apps/locations/models.py:72 apps/locations/models.py:89
+#: apps/locations/models.py:71 apps/locations/models.py:88
 msgid "district"
 msgstr "distrito"
 
-#: apps/locations/models.py:73
+#: apps/locations/models.py:72
 msgid "districts"
 msgstr "distritos"
 
-#: apps/locations/models.py:87
+#: apps/locations/models.py:86
 msgid "latitude"
 msgstr "latitud"
 
-#: apps/locations/models.py:88
+#: apps/locations/models.py:87
 msgid "longitude"
 msgstr "longitud"
 
-#: apps/locations/models.py:93 apps/stores/models.py:65 apps/users/models.py:31
+#: apps/locations/models.py:92 apps/stores/models.py:51 apps/users/models.py:25
 msgid "address"
 msgstr "dirección"
 
-#: apps/locations/models.py:94
+#: apps/locations/models.py:93
 msgid "addresses"
 msgstr "direcciones"
 
-#: apps/products/admin.py:210 apps/products/admin.py:247
-#: apps/products/admin.py:547 apps/stores/admin.py:159 apps/stores/admin.py:291
-msgid "Name"
-msgstr "Nombre"
+#: apps/locations/validators.py:6
+msgid "Latitude must be between -90 and 90 degrees."
+msgstr "La latitud debe estar entre -90 y 90 grados."
 
-#: apps/products/admin.py:306 apps/products/admin.py:564
-#: apps/products/admin.py:612 apps/products/forms.py:19
-msgid "Brand"
-msgstr "Marca"
+#: apps/locations/validators.py:10
+msgid "Longitude must be between -180 and 180 degrees."
+msgstr "La longitud debe estar entre -180 y 180 grados."
 
-#: apps/products/admin.py:582
-msgid "Retail"
-msgstr "cadena"
+#: apps/personal_data/admin.py:46
+#| msgid "Personal info"
+msgid "Personal Information"
+msgstr "Información personal"
 
-#: apps/products/admin.py:603 apps/users/admin.py:185
-msgid "Status"
-msgstr "estado"
+#: apps/personal_data/admin.py:56
+msgid "Contact Details"
+msgstr "Detalles de contacto"
 
-#: apps/products/admin.py:605 apps/products/admin.py:610
-#: apps/stores/admin.py:329 apps/stores/admin.py:334 apps/users/admin.py:187
-#: apps/users/admin.py:192
-msgid "inactive"
-msgstr "inactivo"
+#: apps/personal_data/admin.py:65
+msgid "Additional Information"
+msgstr "Información adicional"
 
-#: apps/products/admin.py:606 apps/products/admin.py:610
-#: apps/stores/admin.py:330 apps/stores/admin.py:334 apps/users/admin.py:188
-#: apps/users/admin.py:192
-msgid "active"
-msgstr "activo"
+#: apps/personal_data/admin.py:75
+#| msgid "created at"
+msgid "Related Sale"
+msgstr "Venta relacionada"
 
-#: apps/products/admin.py:616
+#: apps/personal_data/admin.py:84
+msgid "Important Dates"
+msgstr "Fechas importantes"
+
+#: apps/personal_data/admin.py:104
+msgid "Survey"
+msgstr "Encuesta"
+
+#: apps/personal_data/apps.py:7
+msgid "Personal Data"
+msgstr "Datos personales"
+
+#: apps/personal_data/models.py:10 apps/users/models.py:19
+msgid "first name"
+msgstr "nombres"
+
+#: apps/personal_data/models.py:11 apps/users/models.py:20
+msgid "last name"
+msgstr "apellidos"
+
+#: apps/personal_data/models.py:12 apps/users/models.py:17
+msgid "document type"
+msgstr "tipo de documento"
+
+#: apps/personal_data/models.py:13 apps/users/models.py:18
+msgid "document number"
+msgstr "número de documento"
+
+#: apps/personal_data/models.py:14
+msgid "phone number"
+msgstr "número de teléfono"
+
+#: apps/personal_data/models.py:15
+msgid "email"
+msgstr "correo electrónico"
+
+#: apps/personal_data/models.py:16
+msgid "answer 1"
+msgstr "respuesta 1"
+
+#: apps/personal_data/models.py:17
+msgid "answer 2"
+msgstr "respuesta 2"
+
+#: apps/personal_data/models.py:23
+msgid "Photo of the personal data survey"
+msgstr "Foto de la encuesta de datos personales"
+
+#: apps/personal_data/models.py:28 apps/sales/models.py:93
+#: apps/sales/models.py:100
+msgid "sale"
+msgstr "venta"
+
+#: apps/personal_data/models.py:34
+msgid "personal data survey"
+msgstr "encuesta de datos personales"
+
+#: apps/personal_data/models.py:35
+msgid "personal data surveys"
+msgstr "encuestas de datos personales"
+
+#: apps/products/admin.py:73 apps/products/admin.py:670
 #: venv/lib/python3.9/site-packages/unfold/contrib/guardian/templates/admin/guardian/model/obj_perms_manage_group.html:42
 #: venv/lib/python3.9/site-packages/unfold/contrib/guardian/templates/unfold/guardian/group_form.html:15
 msgid "Group"
 msgstr "Grupo"
 
+#: apps/products/admin.py:149
+msgid "Family"
+msgstr "Familia"
+
+#: apps/products/admin.py:230 apps/products/admin.py:338
+#: apps/products/admin.py:618 apps/products/admin.py:666
+#: apps/products/forms.py:19
+msgid "Brand"
+msgstr "Marca"
+
+#: apps/products/admin.py:268
+msgid "Name"
+msgstr "Nombre"
+
+#: apps/products/admin.py:327
+msgid "Line"
+msgstr "Línea"
+
+#: apps/products/admin.py:414
+msgid "Size"
+msgstr "Tamaño"
+
+#: apps/products/admin.py:481
+msgid "Color"
+msgstr "Color"
+
+#: apps/products/admin.py:601
+msgid "Product"
+msgstr "Producto"
+
+#: apps/products/admin.py:636 apps/stores/admin.py:170
+msgid "Retail"
+msgstr "cadena"
+
+#: apps/products/admin.py:657 apps/users/admin.py:185
+msgid "Status"
+msgstr "estado"
+
+#: apps/products/admin.py:659 apps/products/admin.py:664
+#: apps/stores/admin.py:340 apps/stores/admin.py:345 apps/users/admin.py:187
+#: apps/users/admin.py:192
+msgid "inactive"
+msgstr "inactivo"
+
+#: apps/products/admin.py:660 apps/products/admin.py:664
+#: apps/stores/admin.py:341 apps/stores/admin.py:345 apps/users/admin.py:188
+#: apps/users/admin.py:192
+msgid "active"
+msgstr "activo"
+
 #: apps/products/apps.py:7
 msgid "Products management"
 msgstr "Gestión de productos"
 
-#: apps/products/models.py:14 apps/products/models.py:30
+#: apps/products/models.py:9
+msgid "The code must contain only numeric digits."
+msgstr "El código debe contener solo dígitos."
+
+#: apps/products/models.py:13
+msgid "The code must be exactly 3 digits, and only numbers are allowed."
+msgstr "El código debe tener exactamente 3 dígitos, y solo se permiten números."
+
+#: apps/products/models.py:20 apps/products/models.py:36
 msgid "group"
 msgstr "grupo"
 
-#: apps/products/models.py:15
-#, fuzzy
+#: apps/products/models.py:21
 msgid "groups"
 msgstr "grupos"
 
-#: apps/products/models.py:28 apps/products/models.py:48
-#: apps/stores/models.py:40 apps/stores/models.py:62
+#: apps/products/models.py:34 apps/products/models.py:54
+#: apps/stores/models.py:48
 msgid "code"
 msgstr "código"
 
-#: apps/products/models.py:34 apps/products/models.py:130
+#: apps/products/models.py:40 apps/products/models.py:136
 msgid "family"
 msgstr "familia"
 
-#: apps/products/models.py:35
+#: apps/products/models.py:41
 msgid "families"
 msgstr "familias"
 
-#: apps/products/models.py:53 apps/products/models.py:68
+#: apps/products/models.py:59 apps/products/models.py:74
 msgid "brand"
 msgstr "marca"
 
-#: apps/products/models.py:54
+#: apps/products/models.py:60
 msgid "brands"
 msgstr "marcas"
 
-#: apps/products/models.py:72 apps/products/models.py:129
+#: apps/products/models.py:78 apps/products/models.py:135
 msgid "line"
 msgstr "línea"
 
-#: apps/products/models.py:73
+#: apps/products/models.py:79
 msgid "lines"
 msgstr "líneas"
 
-#: apps/products/models.py:93 apps/products/models.py:127
+#: apps/products/models.py:99 apps/products/models.py:133
 msgid "size"
 msgstr "tamaño"
 
-#: apps/products/models.py:94
+#: apps/products/models.py:100
 msgid "sizes"
 msgstr "tamaños"
 
-#: apps/products/models.py:111 apps/products/models.py:128
+#: apps/products/models.py:117 apps/products/models.py:134
 msgid "color"
 msgstr "color"
 
-#: apps/products/models.py:112
+#: apps/products/models.py:118
 msgid "colors"
 msgstr "colores"
 
-#: apps/products/models.py:125
+#: apps/products/models.py:131
 msgid "SKU"
 msgstr "SKU"
 
-#: apps/products/models.py:131 apps/stores/models.py:47
-#: apps/stores/models.py:67
+#: apps/products/models.py:137 apps/stores/models.py:34
+#: apps/stores/models.py:53
 msgid "retail"
 msgstr "cadena"
 
-#: apps/products/models.py:132
+#: apps/products/models.py:138 apps/sales/models.py:88
 msgid "status"
 msgstr "estado"
 
-#: apps/products/models.py:132
+#: apps/products/models.py:138
 msgid ""
 "Indicates whether this product is active. Uncheck this option if it is not "
 "active."
 msgstr ""
 "Indica si este producto está activo. Desmarca esta opción si no está activo."
 
-#: apps/products/models.py:133 apps/stores/models.py:22
-msgid "description"
-msgstr "descripción"
-
-#: apps/products/models.py:137
+#: apps/products/models.py:143 apps/sales/models.py:101
 msgid "product"
 msgstr "producto"
 
-#: apps/products/models.py:138
+#: apps/products/models.py:144
 msgid "products"
 msgstr "productos"
 
-#: apps/stores/admin.py:209 apps/stores/admin.py:259
+#: apps/sales/apps.py:7
+msgid "Sales management"
+msgstr "Gestión de ventas"
+
+#: apps/sales/models.py:12
+msgid "sale type"
+msgstr "tipo de venta"
+
+#: apps/sales/models.py:13
+msgid "sale types"
+msgstr "tipos de venta"
+
+#: apps/sales/models.py:31
+msgid "sale source"
+msgstr "origen de venta"
+
+#: apps/sales/models.py:32
+msgid "sale sources"
+msgstr "orígenes de venta"
+
+#: apps/sales/models.py:50
+msgid "sale status"
+msgstr "estado de venta"
+
+#: apps/sales/models.py:51
+msgid "sale statuses"
+msgstr "estados de venta"
+
+#: apps/sales/models.py:69
+msgid "sale price type"
+msgstr "tipo de precio de venta"
+
+#: apps/sales/models.py:70
+msgid "sale price types"
+msgstr "tipos de precio de venta"
+
+#: apps/sales/models.py:83
+msgid "sale date"
+msgstr "fecha de venta"
+
+#: apps/sales/models.py:85
+msgid "promoter"
+msgstr "promotor"
+
+#: apps/sales/models.py:86
+msgid "type"
+msgstr "tipo"
+
+#: apps/sales/models.py:87
+msgid "source"
+msgstr "origen"
+
+#: apps/sales/models.py:89
+msgid "comment"
+msgstr "comentario"
+
+#: apps/sales/models.py:94
+msgid "sales"
+msgstr "tipos"
+
+#: apps/sales/models.py:102
+msgid "unit price"
+msgstr "precio unitario"
+
+#: apps/sales/models.py:103
+msgid "quantity"
+msgstr "cantidad"
+
+#: apps/sales/models.py:104
+msgid "price type"
+msgstr "tipo de precio"
+
+#: apps/sales/models.py:107
+msgid "sale detail"
+msgstr "detalle de venta"
+
+#: apps/sales/models.py:108
+msgid "sale details"
+msgstr "detalles de venta"
+
+#: apps/stores/admin.py:71 apps/stores/admin.py:347
+msgid "Channel"
+msgstr "canal"
+
+#: apps/stores/admin.py:219 apps/stores/admin.py:270
 msgid "Operational Team"
 msgstr "Equipo operativo"
 
-#: apps/stores/admin.py:309
+#: apps/stores/admin.py:320
 msgid "Coordinator"
 msgstr "coordinador"
 
-#: apps/stores/admin.py:327
+#: apps/stores/admin.py:338
 msgid "Coverage"
 msgstr "cobertura"
-
-#: apps/stores/admin.py:336
-msgid "Channel"
-msgstr "canal"
 
 #: apps/stores/apps.py:7
 msgid "Stores management"
 msgstr "Gestión de tiendas"
 
-#: apps/stores/models.py:26 apps/stores/models.py:43
+#: apps/stores/models.py:13 apps/stores/models.py:30
 msgid "channel"
 msgstr "canal"
 
-#: apps/stores/models.py:27
+#: apps/stores/models.py:14
 msgid "channels"
 msgstr "canales"
 
-#: apps/stores/models.py:42
+#: apps/stores/models.py:28
 msgid "business name"
 msgstr "nombre comercial"
 
-#: apps/stores/models.py:48
+#: apps/stores/models.py:29
+msgid "RUC"
+msgstr "RUC"
+
+#: apps/stores/models.py:35
 msgid "retails"
 msgstr "cadenas"
 
-#: apps/stores/models.py:64
+#: apps/stores/models.py:50
 msgid "sellout name"
 msgstr "nombre sellout"
 
-#: apps/stores/models.py:66 apps/users/models.py:32
+#: apps/stores/models.py:52 apps/users/models.py:26
 msgid "coordinator"
 msgstr "coordinador"
 
-#: apps/stores/models.py:68
+#: apps/stores/models.py:54
 msgid "coverage"
 msgstr "cobertura"
 
-#: apps/stores/models.py:68
+#: apps/stores/models.py:54
 msgid ""
 "Indicates whether this store is covered. Uncheck this option if it is not "
 "covered."
@@ -406,17 +753,26 @@ msgstr ""
 "Indica si esta tienda está coberturada. Desmarca esta opción si no está "
 "coberturada."
 
-#: apps/stores/models.py:69
+#: apps/stores/models.py:55
 msgid "promoters"
 msgstr "promotores"
 
-#: apps/stores/models.py:73
-msgid "store"
-msgstr "tienda"
-
-#: apps/stores/models.py:74
+#: apps/stores/models.py:60
 msgid "stores"
 msgstr "tiendas"
+
+#: apps/stores/validators.py:10
+msgid "The RUC must contain only digits."
+msgstr "El RUC debe contener solo dígitos."
+
+#: apps/stores/validators.py:12
+msgid "The RUC must have exactly 11 digits."
+msgstr "El RUC debe tener exactamente 11 dígitos."
+
+#: apps/stores/validators.py:22
+msgid "The code must consist of exactly 3 letters followed by 3 numbers."
+msgstr ""
+"El código debe consistir en exactamente 3 letras seguidas de 3 números."
 
 #: apps/users/admin.py:41 apps/users/admin.py:96
 msgid "Personal info"
@@ -464,16 +820,6 @@ msgstr "Núm. doc."
 msgid "Staff"
 msgstr ""
 
-#: apps/users/admin.py:197 apps/users/admin.py:203 apps/users/admin.py:208
-#: apps/users/admin.py:214
-msgid "no"
-msgstr "no"
-
-#: apps/users/admin.py:198 apps/users/admin.py:203 apps/users/admin.py:209
-#: apps/users/admin.py:214
-msgid "yes"
-msgstr "si"
-
 #: apps/users/admin.py:206
 msgid "Superuser"
 msgstr "Superusuario"
@@ -483,58 +829,46 @@ msgid "Users management"
 msgstr "Gestión de usuarios"
 
 #: apps/users/models.py:21
-msgid "foreigner card"
-msgstr "Carnet de extranjería"
-
-#: apps/users/models.py:23
-msgid "document type"
-msgstr "tipo de documento"
-
-#: apps/users/models.py:24
-msgid "document number"
-msgstr "Número de documento"
-
-#: apps/users/models.py:25
-msgid "first name"
-msgstr "nombres"
-
-#: apps/users/models.py:26
-msgid "last name"
-msgstr "apellidos"
-
-#: apps/users/models.py:27
 msgid "corporate phone number"
 msgstr "número de teléfono corporativo"
 
-#: apps/users/models.py:28
+#: apps/users/models.py:22
 msgid "corporate device imei"
 msgstr "IMEI de teléfono corporativo"
 
-#: apps/users/models.py:29
+#: apps/users/models.py:23
 msgid "employment start"
 msgstr "Inicio de empleo"
 
-#: apps/users/models.py:30
+#: apps/users/models.py:24
 msgid "employment end"
 msgstr "Fin de empleo"
 
-#: apps/users/models.py:39
-msgid "user"
-msgstr "usuario"
-
-#: apps/users/models.py:40
+#: apps/users/models.py:34
 msgid "users"
 msgstr "usuarios"
 
-#: apps/users/models.py:58
-msgid "The document number must contain only numerical digits."
-msgstr "El número de documento debe contener solo dígitos numéricos."
+#: utils/constants.py:4
+msgid "Documento Nacional de Identidad"
+msgstr "Documento Nacional de Identidad"
 
-#: apps/users/models.py:60
+#: utils/constants.py:5
+msgid "Carnet de Extranjería"
+msgstr "Carnet de Extranjería"
+
+#: utils/validators.py:9
+msgid "This field must contain only digits."
+msgstr "Este campo debe contener solo dígitos."
+
+#: utils/validators.py:16
+msgid "The document number must contain only digits."
+msgstr "El número de documento debe contener solo dígitos."
+
+#: utils/validators.py:19
 msgid "Document number must be exactly 8 digits for DNI."
 msgstr "El número de documento debe ser exactamente de 8 dígitos para el DNI."
 
-#: apps/users/models.py:62
+#: utils/validators.py:21
 msgid "Document number must be exactly 9 digits for foreigner card."
 msgstr ""
 "El número de documento debe ser exactamente de 9 dígitos para el carnet de "
@@ -967,7 +1301,7 @@ msgstr ""
 #: venv/lib/python3.9/site-packages/django/db/models/fields/__init__.py:2456
 #: venv/lib/python3.9/site-packages/unfold/contrib/filters/forms.py:174
 #: venv/lib/python3.9/site-packages/unfold/contrib/filters/forms.py:190
-#: venv/lib/python3.9/site-packages/unfold/widgets.py:450
+#: venv/lib/python3.9/site-packages/unfold/widgets.py:464
 msgid "Time"
 msgstr "Hora"
 
@@ -1236,8 +1570,8 @@ msgid "Currently"
 msgstr "Actualmente"
 
 #: venv/lib/python3.9/site-packages/django/forms/widgets.py:465
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/stacked.html:50
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:80
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/stacked.html:57
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:83
 #: venv/lib/python3.9/site-packages/unfold/templates/unfold/helpers/app_list_default.html:42
 msgid "Change"
 msgstr "Cambiar"
@@ -1845,30 +2179,30 @@ msgstr "Comunidad de Django"
 msgid "Connect, get help, or contribute"
 msgstr "Conéctate, obtén ayuda o contribuye"
 
-#: venv/lib/python3.9/site-packages/unfold/admin.py:123
-#: venv/lib/python3.9/site-packages/unfold/templatetags/unfold_list.py:332
+#: venv/lib/python3.9/site-packages/unfold/admin.py:124
+#: venv/lib/python3.9/site-packages/unfold/templatetags/unfold_list.py:325
 msgid "Select record"
 msgstr "Seleccionar registro"
 
-#: venv/lib/python3.9/site-packages/unfold/admin.py:155
-#: venv/lib/python3.9/site-packages/unfold/admin.py:176
+#: venv/lib/python3.9/site-packages/unfold/admin.py:156
+#: venv/lib/python3.9/site-packages/unfold/admin.py:177
 msgid "Select value"
 msgstr "Seleccionar valor"
 
-#: venv/lib/python3.9/site-packages/unfold/admin.py:533
+#: venv/lib/python3.9/site-packages/unfold/admin.py:544
 msgid "Select action"
 msgstr "Seleccionar acción"
 
-#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:58
-#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:116
+#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:59
+#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:117
 msgid "All"
 msgstr "Todos"
 
-#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:82
-#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:105
-#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:122
-#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:149
-#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:166
+#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:83
+#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:106
+#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:123
+#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:150
+#: venv/lib/python3.9/site-packages/unfold/contrib/filters/admin.py:167
 msgid "By {}"
 msgstr "Por {}"
 
@@ -2000,7 +2334,7 @@ msgstr "Permisos del objeto"
 #: venv/lib/python3.9/site-packages/unfold/templates/admin/auth/user/change_password.html:13
 #: venv/lib/python3.9/site-packages/unfold/templates/admin/base.html:23
 #: venv/lib/python3.9/site-packages/unfold/templates/admin/change_form.html:18
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/change_list.html:36
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/change_list.html:31
 #: venv/lib/python3.9/site-packages/unfold/templates/admin/delete_confirmation.html:17
 #: venv/lib/python3.9/site-packages/unfold/templates/admin/delete_selected_confirmation.html:17
 #: venv/lib/python3.9/site-packages/unfold/templates/admin/object_history.html:9
@@ -2195,8 +2529,8 @@ msgid "History"
 msgstr "Historia"
 
 #: venv/lib/python3.9/site-packages/unfold/contrib/simple_history/templates/simple_history/object_history_form.html:26
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/stacked.html:52
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:82
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/stacked.html:59
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:85
 #: venv/lib/python3.9/site-packages/unfold/templates/unfold/helpers/app_list_default.html:38
 msgid "View"
 msgstr "Ver"
@@ -2258,11 +2592,11 @@ msgstr "Cambiar Historia"
 msgid "Close"
 msgstr "Cerrar"
 
-#: venv/lib/python3.9/site-packages/unfold/forms.py:39
+#: venv/lib/python3.9/site-packages/unfold/forms.py:44
 msgid "Select action to run"
 msgstr "Seleccionar acción a ejecutar"
 
-#: venv/lib/python3.9/site-packages/unfold/forms.py:99
+#: venv/lib/python3.9/site-packages/unfold/forms.py:102
 msgid ""
 "Raw passwords are not stored, so there is no way to see this user’s "
 "password, but you can change the password using <a href=\"{}\" class=\"text-"
@@ -2355,8 +2689,8 @@ msgid "Add %(name)s"
 msgstr "Agregar %(name)s"
 
 #: venv/lib/python3.9/site-packages/unfold/templates/admin/change_form_object_tools.html:12
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/stacked.html:64
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:90
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/stacked.html:71
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:93
 msgid "View on site"
 msgstr "Ver en el sitio"
 
@@ -2416,16 +2750,6 @@ msgstr ""
 msgid "Objects"
 msgstr "Objetos"
 
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/delete_confirmation.html:100
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/delete_selected_confirmation.html:93
-msgid "No, take me back"
-msgstr "No, llévame de regreso"
-
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/delete_confirmation.html:103
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/delete_selected_confirmation.html:96
-msgid "Yes, I’m sure"
-msgstr "Sí, estoy seguro"
-
 #: venv/lib/python3.9/site-packages/unfold/templates/admin/delete_selected_confirmation.html:27
 msgid "Delete multiple objects"
 msgstr "Eliminar múltiples objetos"
@@ -2459,16 +2783,11 @@ msgstr ""
 "¿Estás seguro de que deseas eliminar los %(objects_name)s seleccionados? "
 "Todos los siguientes objetos y sus elementos relacionados serán eliminados:"
 
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/stacked.html:19
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:21
-msgid "No records found."
-msgstr "No se encontraron registros."
-
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:44
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:47
 msgid "Delete?"
 msgstr "¿Eliminar?"
 
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:149
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/edit_inline/tabular.html:164
 msgid "Remove"
 msgstr "Quitar"
 
@@ -2480,7 +2799,7 @@ msgstr "Resumen"
 msgid "Welcome back to"
 msgstr "Bienvenido de nuevo a"
 
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/login.html:40
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/login.html:42
 #, python-format
 msgid ""
 "You are authenticated as %(username)s, but are not authorized to access this "
@@ -2489,15 +2808,15 @@ msgstr ""
 "Estás autenticado como %(username)s, pero no estás autorizado para acceder a "
 "esta página. ¿Te gustaría iniciar sesión con una cuenta diferente?"
 
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/login.html:61
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/login.html:63
 msgid "Log in"
 msgstr "Iniciar sesión"
 
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/login.html:70
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/login.html:72
 msgid "Forgotten your password or username?"
 msgstr "¿Olvidaste tu contraseña o nombre de usuario?"
 
-#: venv/lib/python3.9/site-packages/unfold/templates/admin/login.html:82
+#: venv/lib/python3.9/site-packages/unfold/templates/admin/login.html:84
 msgid "Return to site"
 msgstr "Volver al sitio"
 
@@ -2570,14 +2889,22 @@ msgstr ""
 "correctamente."
 
 #: venv/lib/python3.9/site-packages/unfold/templates/unfold/change_list_filter.html:9
-msgid "Filter results"
-msgstr "Filtrar resultados"
+msgid "Filter"
+msgstr "Filtros"
 
-#: venv/lib/python3.9/site-packages/unfold/templates/unfold/change_list_filter.html:13
+#: venv/lib/python3.9/site-packages/unfold/templates/unfold/change_list_filter.html:16
+msgid "Hide counts"
+msgstr "Esconder contadores"
+
+#: venv/lib/python3.9/site-packages/unfold/templates/unfold/change_list_filter.html:20
+msgid "Show counts"
+msgstr "Mostrar contadores"
+
+#: venv/lib/python3.9/site-packages/unfold/templates/unfold/change_list_filter.html:29
 msgid "Clear all filters"
 msgstr "Borrar todos los filtros"
 
-#: venv/lib/python3.9/site-packages/unfold/templates/unfold/change_list_filter.html:43
+#: venv/lib/python3.9/site-packages/unfold/templates/unfold/change_list_filter.html:51
 msgid "Apply Filters"
 msgstr "Aplicar filtros"
 
@@ -2609,7 +2936,15 @@ msgstr "Verdadero"
 msgid "False"
 msgstr "Falso"
 
-#: venv/lib/python3.9/site-packages/unfold/templates/unfold/helpers/display_header.html:6
+#: venv/lib/python3.9/site-packages/unfold/templates/unfold/helpers/delete_submit_line.html:5
+msgid "No, take me back"
+msgstr "No, llévame de regreso"
+
+#: venv/lib/python3.9/site-packages/unfold/templates/unfold/helpers/delete_submit_line.html:9
+msgid "Yes, I’m sure"
+msgstr "Sí, estoy seguro"
+
+#: venv/lib/python3.9/site-packages/unfold/templates/unfold/helpers/display_header.html:10
 msgid "Record picture"
 msgstr "Imagen del registro"
 
@@ -2698,14 +3033,14 @@ msgstr "Ver %(model)s seleccionado"
 msgid "Delete selected %(model)s"
 msgstr "Eliminar %(model)s seleccionado"
 
-#: venv/lib/python3.9/site-packages/unfold/templatetags/unfold_list.py:116
+#: venv/lib/python3.9/site-packages/unfold/templatetags/unfold_list.py:109
 msgid "Select all objects on this page for an action"
 msgstr "Seleccionar todos los objetos en esta página para una acción"
 
-#: venv/lib/python3.9/site-packages/unfold/widgets.py:445
+#: venv/lib/python3.9/site-packages/unfold/widgets.py:459
 msgid "Date"
 msgstr "Fecha"
 
-#: venv/lib/python3.9/site-packages/unfold/widgets.py:529
+#: venv/lib/python3.9/site-packages/unfold/widgets.py:553
 msgid "Select currency"
 msgstr "Seleccionar moneda"
