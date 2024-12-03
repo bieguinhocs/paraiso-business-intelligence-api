@@ -30,7 +30,7 @@ sys.path.insert(0, str(BASE_DIR / 'apps'))
 SECRET_KEY = os.environ.get('SECRET_KEY', default='fallback_default_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = True #'RENDER' not in os.environ
 
 ALLOWED_HOSTS = [
     'belowapp-paraiso.onrender.com',
@@ -161,15 +161,15 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = "media/"
 
-# This production code might break development mode, so we check whether we're in DEBUG mode
-if not DEBUG:
-    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
-    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-    # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+## This production code might break development mode, so we check whether we're in DEBUG mode
+#if not DEBUG:
+#    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+#    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#    MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+#    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+#    # and renames the files with unique names for each version to support long-term caching
+#    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Durante el desarrollo, asegura que MEDIA_ROOT y STATICFILES_DIRS estén configurados adecuadamente
 if DEBUG:
