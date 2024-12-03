@@ -80,12 +80,12 @@ class SalePriceType(models.Model):
         super().save(*args, **kwargs)
 
 class Sale(models.Model):
-    sale_date = models.DateTimeField(_('sale date'), blank=True)
+    sale_date = models.DateTimeField(_('sale date'), blank=True, null=True)
     store = models.ForeignKey('stores.Store', on_delete=models.CASCADE, verbose_name=_('store'))
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name=_('promoter'))
-    sale_type = models.ForeignKey(SaleType, on_delete=models.CASCADE, verbose_name=_('type'))
-    source = models.ForeignKey(SaleSource, on_delete=models.CASCADE, verbose_name=_('source'))
-    sale_status = models.ForeignKey(SaleStatus, on_delete=models.CASCADE, verbose_name=_('status'))
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name=_('promoter'), null=True)
+    sale_type = models.ForeignKey(SaleType, on_delete=models.CASCADE, verbose_name=_('type'), null=True)
+    source = models.ForeignKey(SaleSource, on_delete=models.CASCADE, verbose_name=_('source'), null=True)
+    sale_status = models.ForeignKey(SaleStatus, on_delete=models.CASCADE, verbose_name=_('status'), null=True)
     comment = models.TextField(_('comment'), blank=True, null=True)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
@@ -100,7 +100,7 @@ class SaleDetail(models.Model):
     sale = models.ForeignKey(Sale, on_delete=models.CASCADE, related_name='details', verbose_name=_('sale'))
     product = models.ForeignKey('products.Product', on_delete=models.CASCADE, verbose_name=_('product'))
     unit_price = models.DecimalField(_('unit price'), max_digits=5, decimal_places=2)
-    quantity = models.IntegerField(_('quantity'), max_digits=3)
+    quantity = models.IntegerField(_('quantity'))
     price_type = models.ForeignKey(SalePriceType, on_delete=models.CASCADE, verbose_name=_('price type'))
 
     class Meta:
