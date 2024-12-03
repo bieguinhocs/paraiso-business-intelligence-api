@@ -51,9 +51,9 @@ class Attendance(models.Model):
     photo = models.ImageField(
         _('photo'),
         upload_to='attendance_photos/',
-        blank=True,
-        null=True,
-        help_text=_('Photo captured during attendance record')
+        blank=False,
+        null=False,
+        help_text=_('Photo of the user marking attendance')
     )
     automatic = models.BooleanField(
         _('automatic'),
