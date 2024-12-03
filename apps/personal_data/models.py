@@ -19,10 +19,10 @@ class PersonalData(models.Model):
     answer_2 = models.TextField(_('answer 2'), blank=True, null=True)
     photo = models.ImageField(
         _('photo'),
-        upload_to='client_photos/',
-        blank=True,
-        null=True,
-        help_text=_('Photo of the client (optional)')
+        upload_to='personal_data_survey_photos/',
+        blank=False,
+        null=False,
+        help_text=_('Photo of the personal data survey')
     )
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
