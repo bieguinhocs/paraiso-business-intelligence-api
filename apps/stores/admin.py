@@ -201,6 +201,7 @@ class StoreAdmin(ModelAdmin):
             _('Overview'), 
             {
                 'fields': (
+                    'code',
                     (
                         'name',
                         'sellout_name',
@@ -234,6 +235,7 @@ class StoreAdmin(ModelAdmin):
         'display_created',
     )
     search_fields = (
+        'code',
         'name',
         'address__district__city__name',
         'retail__name',
@@ -248,7 +250,8 @@ class StoreAdmin(ModelAdmin):
         (
             _('Overview'),
             {
-                'fields': (      
+                'fields': (     
+                    'code', 
                     (
                         'name',
                         'sellout_name',

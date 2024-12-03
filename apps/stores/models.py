@@ -45,6 +45,7 @@ class StoreRetail(models.Model):
         super().save(*args, **kwargs)
 
 class Store(models.Model):
+    code = models.CharField(_('code'), max_length=10, blank=True, null=True)
     name = models.CharField(_('name'), max_length=255)
     sellout_name = models.CharField(_('sellout name'), max_length=255, blank=True, null=True)
     address = models.ForeignKey('locations.Address', on_delete=models.CASCADE, null=True, blank=True, verbose_name=_('address'))
