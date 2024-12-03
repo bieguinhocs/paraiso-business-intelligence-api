@@ -32,9 +32,6 @@ dist/
 # Archivos de seguridad
 *.env
 
-# Archivos de migraciones
-migrations/
-
 # Archivos de caché
 *.cache
 
