@@ -63,6 +63,8 @@ class Store(models.Model):
     
     @property
     def full_name(self):
+        if self.address and self.address.district and self.address.district.city:
+            return f"{self.retail.name} {self.address.district.city.name} {self.name}"
         return f"{self.retail.name} {self.name}"
     
     def clean(self):
