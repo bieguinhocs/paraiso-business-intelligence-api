@@ -92,6 +92,8 @@ class PersonalDataAdmin(ModelAdmin):
     )
     radio_fields = {
         'client_document_type': admin.HORIZONTAL,
+        'answer_1': admin.HORIZONTAL,
+        'answer_2': admin.HORIZONTAL,
     }
     autocomplete_fields = (
         'sale',
