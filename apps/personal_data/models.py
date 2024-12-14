@@ -10,7 +10,7 @@ class PersonalData(models.Model):
     client_first_name = models.CharField(_('first name'), max_length=255)
     client_last_name = models.CharField(_('last name'), max_length=255)
     client_document_type = models.CharField(_('document type'), max_length=3, choices=DOCUMENT_TYPE_CHOICES)
-    client_document_number = models.CharField(_('document number'), max_length=9, validators=[MinLengthValidator(9)], unique=True)
+    client_document_number = models.CharField(_('document number'), max_length=9, unique=True)
     client_phone = models.CharField(_('phone number'), max_length=9, validators=[validate_only_digits, MinLengthValidator(9)], blank=True, null=True)
     client_email = models.EmailField(_('email'), blank=True, null=True)
     answer_1 = models.TextField(_('answer 1'), blank=True, null=True)
