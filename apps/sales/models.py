@@ -99,7 +99,7 @@ class Sale(models.Model):
 class SaleDetail(models.Model):
     sale = models.ForeignKey(Sale, on_delete=models.CASCADE, related_name='details', verbose_name=_('sale'))
     product = models.ForeignKey('products.Product', on_delete=models.CASCADE, verbose_name=_('product'))
-    unit_price = models.DecimalField(_('unit price'), max_digits=5, decimal_places=2)
+    unit_price = models.DecimalField(_('unit price'), max_digits=6, decimal_places=2)
     quantity = models.IntegerField(_('quantity'))
     price_type = models.ForeignKey(SalePriceType, on_delete=models.CASCADE, verbose_name=_('price type'))
 
