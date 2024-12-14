@@ -4,7 +4,10 @@ from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinLengthValidator
 from utils.text_format import format_to_title_case
 from utils.validators import validate_only_digits, validate_document_number
-from utils.constants import DOCUMENT_TYPE_CHOICES
+from utils.constants import (
+    DOCUMENT_TYPE_CHOICES,
+    YES_NO_CHOICES,
+)
 
 class PersonalData(models.Model):
     client_first_name = models.CharField(_('client first name'), max_length=255)
@@ -13,8 +16,8 @@ class PersonalData(models.Model):
     client_document_number = models.CharField(_('client document number'), max_length=9, unique=True)
     client_phone = models.CharField(_('client phone number'), max_length=9, validators=[validate_only_digits, MinLengthValidator(9)], blank=True, null=True)
     client_email = models.EmailField(_('client email'), blank=True, null=True)
-    answer_1 = models.TextField(_('answer 1'), blank=True, null=True)
-    answer_2 = models.TextField(_('answer 2'), blank=True, null=True)
+    answer_1 = models.CharField(_('Cuando usted llegó, ¿pensó en comprar Paraíso? '), max_length=3, choices=YES_NO_CHOICES)
+    answer_2 = models.CharField(_('¿Podemos llamarlo/a en 3 semanas para hacerle algunas preguntas sobre su compra? '), max_length=3, choices=YES_NO_CHOICES)
     photo = models.ImageField(
         _('survey photo'),
         upload_to='personal_data_survey_photos/',
