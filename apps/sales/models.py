@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from utils.text_format import format_to_title_case
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class SaleType(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -100,7 +101,7 @@ class SaleDetail(models.Model):
     sale = models.ForeignKey(Sale, on_delete=models.CASCADE, related_name='details', verbose_name=_('sale'))
     product = models.ForeignKey('products.Product', on_delete=models.CASCADE, verbose_name=_('product'))
     unit_price = models.DecimalField(_('unit price'), max_digits=6, decimal_places=2)
-    quantity = models.IntegerField(_('quantity'))
+    quantity = models.IntegerField(_('quantity'), validators=[MinValueValidator(1), MaxValueValidator(100)])
     price_type = models.ForeignKey(SalePriceType, on_delete=models.CASCADE, verbose_name=_('price type'))
 
     class Meta:
