@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-14 02:04-0500\n"
+"POT-Creation-Date: 2024-12-14 02:55-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,15 +224,15 @@ msgstr "Foto no disponible"
 #: apps/products/models.py:35 apps/products/models.py:55
 #: apps/products/models.py:73 apps/products/models.py:95
 #: apps/products/models.py:113 apps/products/models.py:132
-#: apps/sales/models.py:8 apps/sales/models.py:26 apps/sales/models.py:45
-#: apps/sales/models.py:64 apps/stores/models.py:8 apps/stores/models.py:27
+#: apps/sales/models.py:9 apps/sales/models.py:27 apps/sales/models.py:46
+#: apps/sales/models.py:65 apps/stores/models.py:8 apps/stores/models.py:27
 #: apps/stores/models.py:49
 msgid "name"
 msgstr "nombre"
 
 #: apps/attendances/models.py:7 apps/attendances/models.py:19
-#: apps/products/models.py:139 apps/sales/models.py:27 apps/sales/models.py:46
-#: apps/sales/models.py:65 apps/stores/models.py:9
+#: apps/products/models.py:139 apps/sales/models.py:28 apps/sales/models.py:47
+#: apps/sales/models.py:66 apps/stores/models.py:9
 msgid "description"
 msgstr "descripción"
 
@@ -244,8 +244,8 @@ msgstr "descripción"
 #: apps/products/models.py:37 apps/products/models.py:56
 #: apps/products/models.py:75 apps/products/models.py:96
 #: apps/products/models.py:114 apps/products/models.py:140
-#: apps/sales/models.py:9 apps/sales/models.py:28 apps/sales/models.py:47
-#: apps/sales/models.py:66 apps/sales/models.py:90 apps/stores/models.py:10
+#: apps/sales/models.py:10 apps/sales/models.py:29 apps/sales/models.py:48
+#: apps/sales/models.py:67 apps/sales/models.py:91 apps/stores/models.py:10
 #: apps/stores/models.py:31 apps/stores/models.py:56 apps/users/models.py:27
 msgid "created at"
 msgstr "fecha de creación"
@@ -270,12 +270,12 @@ msgstr "tipos de acceso"
 msgid "user"
 msgstr "usuario"
 
-#: apps/attendances/models.py:39 apps/sales/models.py:84
+#: apps/attendances/models.py:39 apps/sales/models.py:85
 #: apps/stores/models.py:59
 msgid "store"
 msgstr "tienda"
 
-#: apps/attendances/models.py:52 apps/personal_data/models.py:19
+#: apps/attendances/models.py:52
 msgid "photo"
 msgstr "foto"
 
@@ -408,29 +408,29 @@ msgstr "Encuesta"
 msgid "Personal Data"
 msgstr "Datos personales"
 
-#: apps/personal_data/models.py:10 apps/users/models.py:19
-msgid "first name"
-msgstr "nombres"
+#: apps/personal_data/models.py:10
+msgid "client first name"
+msgstr "nombres del cliente"
 
-#: apps/personal_data/models.py:11 apps/users/models.py:20
-msgid "last name"
-msgstr "apellidos"
+#: apps/personal_data/models.py:11
+msgid "client last name"
+msgstr "apellidos del cliente"
 
-#: apps/personal_data/models.py:12 apps/users/models.py:17
-msgid "document type"
-msgstr "tipo de documento"
+#: apps/personal_data/models.py:12
+msgid "client document type"
+msgstr "tipo de documento del cliente"
 
-#: apps/personal_data/models.py:13 apps/users/models.py:18
-msgid "document number"
-msgstr "número de documento"
+#: apps/personal_data/models.py:13
+msgid "client document number"
+msgstr "número de documento del cliente"
 
 #: apps/personal_data/models.py:14
-msgid "phone number"
-msgstr "número de teléfono"
+msgid "client phone number"
+msgstr "número de teléfono del cliente"
 
 #: apps/personal_data/models.py:15
-msgid "email"
-msgstr "correo electrónico"
+msgid "client email"
+msgstr "correo electrónico del cliente"
 
 #: apps/personal_data/models.py:16
 msgid "answer 1"
@@ -440,12 +440,16 @@ msgstr "respuesta 1"
 msgid "answer 2"
 msgstr "respuesta 2"
 
+#: apps/personal_data/models.py:19
+msgid "survey photo"
+msgstr "foto de la encuesta"
+
 #: apps/personal_data/models.py:23
 msgid "Photo of the personal data survey"
 msgstr "Foto de la encuesta de datos personales"
 
-#: apps/personal_data/models.py:28 apps/sales/models.py:93
-#: apps/sales/models.py:100
+#: apps/personal_data/models.py:28 apps/sales/models.py:94
+#: apps/sales/models.py:101
 msgid "sale"
 msgstr "venta"
 
@@ -588,7 +592,7 @@ msgstr "SKU"
 msgid "retail"
 msgstr "cadena"
 
-#: apps/products/models.py:138 apps/sales/models.py:88
+#: apps/products/models.py:138 apps/sales/models.py:89
 msgid "status"
 msgstr "estado"
 
@@ -599,7 +603,7 @@ msgid ""
 msgstr ""
 "Indica si este producto está activo. Desmarca esta opción si no está activo."
 
-#: apps/products/models.py:143 apps/sales/models.py:101
+#: apps/products/models.py:143 apps/sales/models.py:102
 msgid "product"
 msgstr "producto"
 
@@ -611,79 +615,79 @@ msgstr "productos"
 msgid "Sales management"
 msgstr "Gestión de ventas"
 
-#: apps/sales/models.py:12
+#: apps/sales/models.py:13
 msgid "sale type"
 msgstr "tipo de venta"
 
-#: apps/sales/models.py:13
+#: apps/sales/models.py:14
 msgid "sale types"
 msgstr "tipos de venta"
 
-#: apps/sales/models.py:31
+#: apps/sales/models.py:32
 msgid "sale source"
 msgstr "origen de venta"
 
-#: apps/sales/models.py:32
+#: apps/sales/models.py:33
 msgid "sale sources"
 msgstr "orígenes de venta"
 
-#: apps/sales/models.py:50
+#: apps/sales/models.py:51
 msgid "sale status"
 msgstr "estado de venta"
 
-#: apps/sales/models.py:51
+#: apps/sales/models.py:52
 msgid "sale statuses"
 msgstr "estados de venta"
 
-#: apps/sales/models.py:69
+#: apps/sales/models.py:70
 msgid "sale price type"
 msgstr "tipo de precio de venta"
 
-#: apps/sales/models.py:70
+#: apps/sales/models.py:71
 msgid "sale price types"
 msgstr "tipos de precio de venta"
 
-#: apps/sales/models.py:83
+#: apps/sales/models.py:84
 msgid "sale date"
 msgstr "fecha de venta"
 
-#: apps/sales/models.py:85
+#: apps/sales/models.py:86
 msgid "promoter"
 msgstr "promotor"
 
-#: apps/sales/models.py:86
+#: apps/sales/models.py:87
 msgid "type"
 msgstr "tipo"
 
-#: apps/sales/models.py:87
+#: apps/sales/models.py:88
 msgid "source"
 msgstr "origen"
 
-#: apps/sales/models.py:89
+#: apps/sales/models.py:90
 msgid "comment"
 msgstr "comentario"
 
-#: apps/sales/models.py:94
+#: apps/sales/models.py:95
 msgid "sales"
 msgstr "ventas"
 
-#: apps/sales/models.py:102
+#: apps/sales/models.py:103
 msgid "unit price"
 msgstr "precio unitario"
 
-#: apps/sales/models.py:103
+#: apps/sales/models.py:104
 msgid "quantity"
 msgstr "cantidad"
 
-#: apps/sales/models.py:104
+#: apps/sales/models.py:105
 msgid "price type"
 msgstr "tipo de precio"
 
-#: apps/sales/models.py:107
+#: apps/sales/models.py:108
 msgid "sale detail"
 msgstr "detalle de venta"
 
-#: apps/sales/models.py:108
+#: apps/sales/models.py:109
 msgid "sale details"
 msgstr "detalles de venta"
 
@@ -821,6 +825,22 @@ msgstr "Superusuario"
 #: apps/users/apps.py:7
 msgid "Users management"
 msgstr "Gestión de usuarios"
+
+#: apps/users/models.py:17
+msgid "document type"
+msgstr "tipo de documento"
+
+#: apps/users/models.py:18
+msgid "document number"
+msgstr "número de documento"
+
+#: apps/users/models.py:19
+msgid "first name"
+msgstr "nombres"
+
+#: apps/users/models.py:20
+msgid "last name"
+msgstr "apellidos"
 
 #: apps/users/models.py:21
 msgid "corporate phone number"
@@ -3338,3 +3358,6 @@ msgstr "Fecha"
 #: venv/lib/python3.9/site-packages/unfold/widgets.py:553
 msgid "Select currency"
 msgstr "Seleccionar moneda"
+
+#~ msgid "email"
+#~ msgstr "correo electrónico"
