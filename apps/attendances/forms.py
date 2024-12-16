@@ -36,16 +36,49 @@ class AttendanceForm(forms.ModelForm):
             record_type=record_type,         
             created_at__date=today
         ).exists():
-            raise ValidationError(f"Ya existe un registro de {access_type} de {record_type}!")
+            raise ValidationError(f"Ya existe un registro de {access_type} de {record_type}.")
 
         # Recuperar las marcaciones existentes del usuario para el día actual
         user_attendances = Attendance.objects.filter(
             user=user,
             created_at__date=today
         ).order_by('created_at')
+        
+        # Extraer las marcaciones actuales
+        current_order = [
+            (attendance.access_type.name, attendance.record_type.name)
+            for attendance in user_attendances
+        ]
 
-        # Validar que el primer registro del día sea "Jornada - Inicio"
-        if not user_attendances.exists() and (access_type.name != 'Inicio' or record_type.name != 'Jornada'):
-            raise ValidationError("El primer registro del día debe ser Inicio Jornada")
+        # Añadir la nueva marcación al orden
+        current_order.append((access_type.name, record_type.name))
+
+        # Validar el orden
+        expected_order = [
+            ('Inicio', 'Asistencia'),
+            ('Inicio', 'Refrigerio'),
+            ('Fin', 'Refrigerio'),
+            ('Fin', 'Asistencia')
+        ]
+
+        # Validar que el primer registro del día sea "Inicio Asistencia"
+        if not user_attendances.exists() and (access_type.name != 'Inicio' or record_type.name != 'Asistencia'):
+            raise ValidationError("El primer registro del día debe ser Inicio de Asistencia.")
+
+        # Validar si el usuario intenta registrar "Fin Asistencia" directamente después de "Inicio Asistencia"
+        if len(current_order) == 2 and current_order == [
+            ('Inicio', 'Asistencia'),
+            ('Fin', 'Asistencia')
+        ]:
+            return cleaned_data  # Caso permitido, no es necesario validar más
+
+        # Validar el orden de las marcaciones
+        for i in range(len(current_order)):
+            valid_order = expected_order[:i + 1]
+            if current_order[:i + 1] != valid_order:
+                missing_access_type, missing_record_type = expected_order[len(current_order[:i])]
+                raise ValidationError(
+                    f"No puedes registrar {access_type.name} de {record_type.name} porque falta la marcación de {missing_access_type} de {missing_record_type}."
+                )
 
         return cleaned_data
