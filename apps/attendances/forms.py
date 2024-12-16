@@ -28,6 +28,7 @@ class AttendanceForm(forms.ModelForm):
         today = now().date()
         access_type = cleaned_data.get('access_type')
         record_type = cleaned_data.get('record_type')
+        store = cleaned_data.get('store')
 
         # Validar duplicados
         if Attendance.objects.filter(
@@ -43,6 +44,10 @@ class AttendanceForm(forms.ModelForm):
             user=user,
             created_at__date=today
         ).order_by('created_at')
+
+        # Validar que las marcaciones estén completas
+        if user_attendances.filter(access_type__name='Fin', record_type__name='Asistencia').exists():
+            raise ValidationError("Las marcaciones para este día ya están completas. No puedes registrar más.")
         
         # Extraer las marcaciones actuales
         current_order = [
