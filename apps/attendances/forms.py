@@ -48,7 +48,15 @@ class AttendanceForm(forms.ModelForm):
         # Validar que las marcaciones estén completas
         if user_attendances.filter(access_type__name='Fin', record_type__name='Asistencia').exists():
             raise ValidationError("Las marcaciones para este día ya están completas. No puedes registrar más.")
-        
+
+        # Validar que la tienda sea consistente
+        if user_attendances.exists() and store:
+            first_store = user_attendances.first().store
+            if first_store and store != first_store:
+                raise ValidationError(
+                    f"La tienda seleccionada ({store.full_name}) no coincide con la primera marcación del día ({first_store.full_name})."
+                )
+
         # Extraer las marcaciones actuales
         current_order = [
             (attendance.access_type.name, attendance.record_type.name)
