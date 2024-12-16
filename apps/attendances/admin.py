@@ -93,7 +93,7 @@ class AttendanceAdmin(ModelAdmin):
             {
                 'fields': (
                     ('user', 'store'),
-                    ('record_type', 'access_type'),
+                    ('access_type', 'record_type'),
                     'photo_preview',
                     'automatic',
                 ),
