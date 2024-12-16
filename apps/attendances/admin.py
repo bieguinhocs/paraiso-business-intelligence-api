@@ -62,7 +62,7 @@ class AttendanceAdmin(ModelAdmin):
             {
                 'fields': (
                     ('store'),
-                    ('record_type', 'access_type'),
+                    ('access_type', 'record_type'),
                     'photo',
                 ),
                 'classes': ('wide',),
