@@ -161,11 +161,15 @@ class AttendanceAdmin(ModelAdmin):
     def display_created(self, instance: Attendance):
         return instance.created_at
     
+    def get_form(self, request, obj=None, **kwargs):
+        # Pasar el request al formulario personalizado
+        kwargs['form'] = self.form
+        form = super().get_form(request, obj, **kwargs)
+        form.request = request
+        return form
+
     def save_model(self, request, obj, form, change):
-        """
-        Sobrescribe el método save_model para asignar automáticamente el usuario de la sesión.
-        """
-        if not obj.pk:
+        if not obj.user_id:
             obj.user = request.user
         super().save_model(request, obj, form, change)
 
