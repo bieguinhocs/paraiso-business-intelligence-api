@@ -26,16 +26,26 @@ class AttendanceForm(forms.ModelForm):
 
         # Acceder a datos de la asistencia
         today = now().date()
-        record_type = cleaned_data.get('record_type')
         access_type = cleaned_data.get('access_type')
+        record_type = cleaned_data.get('record_type')
 
         # Validar duplicados
         if Attendance.objects.filter(
             user=user,
-            record_type=record_type,
             access_type=access_type,
+            record_type=record_type,         
             created_at__date=today
         ).exists():
-            raise ValidationError("Ya existe un registro con este tipo y acceso para hoy.")
-        
+            raise ValidationError(f"Ya existe un registro de {access_type} de {record_type}!")
+
+        # Recuperar las marcaciones existentes del usuario para el día actual
+        user_attendances = Attendance.objects.filter(
+            user=user,
+            created_at__date=today
+        ).order_by('created_at')
+
+        # Validar que el primer registro del día sea "Jornada - Inicio"
+        if not user_attendances.exists() and (access_type.name != 'Inicio' or record_type.name != 'Jornada'):
+            raise ValidationError("El primer registro del día debe ser Inicio Jornada")
+
         return cleaned_data
