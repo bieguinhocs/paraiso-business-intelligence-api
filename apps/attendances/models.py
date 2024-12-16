@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from utils.text_format import format_to_title_case
 from django.utils.translation import gettext_lazy as _
 
 class AttendanceRecordType(models.Model):
@@ -13,6 +14,10 @@ class AttendanceRecordType(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        self.name = format_to_title_case(self.name)
+        super().save(*args, **kwargs)
 
 class AttendanceAccessType(models.Model):
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -25,6 +30,10 @@ class AttendanceAccessType(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        self.name = format_to_title_case(self.name)
+        super().save(*args, **kwargs)
 
 class Attendance(models.Model):
     user = models.ForeignKey(
