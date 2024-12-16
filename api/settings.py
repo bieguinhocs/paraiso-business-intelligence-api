@@ -183,6 +183,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+
+# Session configuration
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+SESSION_COOKIE_AGE = 5 * 60 * 60 # 5 horas = 5 x 60 minutos x 60 segundos
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+
+# Unfold configuration
+
 UNFOLD = {
     'SITE_TITLE': 'Below Admin',
     'SITE_HEADER': 'Paraiso Admin',
